@@ -1,0 +1,798 @@
+
+
+@media screen and (max-width: 768px) {
+    
+.BG3, .BG4, .BG5, .BG6, .BG7, .BG8, .DAI2, .TT1, .TT2, .TT3, .GOOD, .GOOD2, 
+.ruler, .notebook-binder, .labelpaper, .S1PHOTOBG, .S1PHOTOBG2, .S2PHOTOBG, .S2PHOTOBG2,.S3PHOTOBG, .S3PHOTOBG2, 
+.S1ET, .S2ET, .S3ET{
+        display: none !important; /* 這樣它們在手機版就會完全消失不見 */
+    }
+
+
+
+/* ------------------------------ */
+    
+    /* 🟢 舊的 :nth-child(n+5) 已移除！現在完全交給上面 index-4.html 的智慧 JS 去動態分配 */
+    
+    /* 強制恢復手機版 wrapper 彈性直向排列的必備底子 (這段保留) */
+    .swiper-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+    
+    .swiper-slide {
+        width: 100% !important;
+        margin-bottom: 30px !important; 
+        clear: both;
+    }
+
+
+    /* 🌟 核心修正：強制還原手機版 wrapper 彈性盒模型與所有照片卡片置中 
+       在這裡我們加上了 margin: 0 auto !important 並且清空任何可能影響偏移的 class 作用 */
+    .swiper-s1 .swiper-wrapper,
+    .swiper-s2 .swiper-wrapper,
+    .swiper-s3 .swiper-wrapper,
+    .swiper-s4 .swiper-wrapper,
+    .swiper-s5 .swiper-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;     /* 關鍵：確保在手機上垂直堆疊時完全水平居中 */
+        justify-content: center !important;
+        gap: 35px !important;               /* 卡片跟卡片之間的上下安全距離 */
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 確保每一張卡片在手機版都是乾乾淨淨、100% 滿版置中，徹底消滅電腦版的偏移 class 影響 */
+    .swiper-s1 .swiper-slide,
+    .swiper-s2 .swiper-slide,
+    .swiper-s3 .swiper-slide,
+    .swiper-s4 .swiper-slide,
+    .swiper-s5 .swiper-slide,
+    .only2R2, .only2R {
+        width: 100% !important;             /* 手機版卡片撐滿螢幕寬度 */
+        max-width: 500px !important;        /* 設定手機版最大美觀寬度，防止在大螢幕手機上太寬 */
+        height: auto !important;
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 auto !important;          /* 關鍵：靠這行強迫兩張照片的區塊在手機版徹底水平居中 */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
+        background: #fff !important;
+        display: block !important;
+        position: relative !important;
+        left: 0 !important;                 /* 清除可能寫死在電腦版的左右位移 */
+        right: 0 !important;
+    }
+
+    /* 調整區塊高度，讓它隨卡片數量多寡自動撐高 */
+    #S1, #S2, #S3, #S4, #S5 {
+        height: auto !important;
+        padding: 50px 20px 80px 20px !important;
+    }
+
+
+
+@media screen and (max-width: 768px) {
+    /* 📱 手機版：國二四留下前 5 張原始照片，從第 6 張開始完美隱形不留痕跡 */
+    .swiper-s2 .swiper-wrapper .swiper-slide:nth-child(n+6) {
+        display: none !important;
+    }
+}
+
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 12vw;
+    background-image: url(../images/Navigation\ bar.jpg);
+    z-index: 1000; /* 確保導覽列永遠在最上層 */
+    transition: background 0.3s ease;
+}
+
+
+.nav-container {
+    width: 100%;        /* 寬度百分之百撐開 */
+    max-width: none;     /* 取消最大寬度限制，讓它釋放邊界 */
+    padding: 0 20px;     /* 左右只留 20px 的微小安全間距，如果想完全貼死可以改成 0 */
+    height: 100%;
+    
+    display: flex;
+    justify-content: space-between; /* 關鍵：這會把 LOGO 推到最左，選單推到最右 */
+    align-items: center;
+}
+
+/* 左側 LOGO 圖片設定 */
+.nav-logo img {
+    height: 15vw; 
+    width: auto;  
+    display: block;
+    margin-left: 9.3vw; /* 原 100pt */
+    transition: transform 0.5s ease, height 0.5s ease; 
+}
+
+/* ==========================================
+   🔥 新增：當網頁在最頂端（.at-top）時的 LOGO 放大效果
+   ========================================== */
+.navbar.at-top .nav-logo img {
+    height: 15vw; 
+    margin-top: 1.5vw; /* 原 40pt */
+}
+/* 左側 LOGO 的 Hover 效果 (你原本的) */
+/* 💡 加上 :not(.at-top) 可以讓它在頂端放大時不要再重複放大，畫面比較乾淨 */
+.nav-logo img:hover {
+    transform: scale(1.1);
+}
+
+/* ============ 下拉選單 ============ */
+
+.MANU {
+    position: fixed;
+    top: -2vw; /* 原 -30pt */
+    right: 4.6vw; /* 原 50pt */
+    height: 30vw; /* 固定高度 */
+    width: auto;  /* 寬度會根據圖片原本的比例，自動等比例縮放 */
+    z-index: 1000; /* 確保導覽列永遠在最上層 */
+    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    
+}
+
+.MANU:hover{
+    transform: translateY(1vw); /* 原 22.5pt */
+}
+
+.MANUB{
+/* 💡 關鍵：把按鈕預設的灰色背景變成「透明」 */
+    background-color: transparent;
+    border: none;
+}
+
+
+
+
+    /* --- 1. 封面主區塊調整 --- */
+    #S0 {
+        height: 160vw; /* 手機版改為直向，高度拉高，讓物件有空間直向堆疊 */
+        padding-top: 5vw;
+        position: relative;
+        overflow: hidden; /* 確保手機版不會產生左右奇怪的捲軸 */
+    }
+
+    /* --- 2. 標題文字區塊：全新淡入動畫與置中 --- */
+    .S0T {
+        top: 45vw;                   /* 調整在手機上的頂部距離 */
+        left: 50% !important;        /* 強制將起點設在螢幕正中間 */
+        width: 90vw;                 /* 限制文字區塊最大寬度，避免跑版 */
+        text-align: center;
+        text-shadow: 2px 2px 2px #ffffff;
+        
+        /* 整個標題區第一個登場：花費 1 秒，由下往上淡入 */
+        animation: mobileFadeInUp 1s ease forwards !important;
+    }
+
+    /* 第一行小標：成果展主題（取消電腦打字效果） */
+    .S0T1 {
+        animation: none !important;  /* 關閉電腦版打字動畫 */
+        font-size: 6vw;            /* 大幅放大字體 */
+        letter-spacing: 0.5vw;
+        display: block;              /* 改為 block 讓它單獨佔一行 */
+        width: 100% !important;      /* 強制寬度 100% 展開 */
+        white-space: normal;         /* 允許手機版太長時自動換行 */
+        border-right: none;          /* 拔掉打字機閃爍游標線 */
+       
+    }
+
+    /* 第二行大標：主要標題（取消電腦打字效果） */
+    .S0T2 {
+        animation: none !important;  /* 關閉電腦版打字動畫 */
+        font-size: 12vw;             /* 大幅放大字體 */
+        letter-spacing: 0.5vw;
+        display: block;              /* 改為 block 讓它單獨佔一行 */
+        width: 100% !important;      /* 強制寬度 100% 展開 */
+        white-space: normal;         /* 允許手機版太長時自動換行 */
+        border-right: none;          /* 拔掉打字機閃爍游標線 */
+        margin: 0 auto;              /* 居中 */
+    }
+
+    /* --- 3. 插圖與貼紙物件：全新排隊淡入與放大 --- */
+    
+    /* 學校貼紙 SCHOOL：第二個登場（延遲 0.3 秒） */
+    .SCHOOL {
+        opacity: 0;                  /* 剛進入網頁先藏起來，等動畫觸發 */
+        top: 30vw;
+        bottom: 92vw;                /* 定位在標題下方、BIBI上方 */
+        left: 50% !important;        /* 水平置中 */
+        height: 15vw;                /* 放大尺寸 */
+        width: auto;
+        
+        /* 指派新動畫：名稱 動作時間 速度 延遲時間 停在結束狀態 */
+        animation: mobileFadeInUp 1.2s ease 0.3s forwards !important;
+    }
+
+    /* 插圖貼紙 BIBI：第三個登場（延遲 0.6 秒） */
+    .BIBI {
+        opacity: 0;                  /* 剛進入網頁先藏起來 */
+        top: 47vw;
+        bottom: 45vw;                /* 利用 bottom 定位在手機版的中下方 */
+        left: 50% !important;        /* 水平置中 */
+        height: 60vw;                /* 大幅放大插圖尺寸 */
+        width: auto;
+        
+        animation: mobileFadeInUp 1.2s ease 0.6s forwards !important;
+    }
+
+    /* 背景裝飾大字 S0ET：第四個淡淡浮現（延遲 0.9 秒） */
+    .S0ET {
+        opacity: 0;                  /* 剛進入網頁先藏起來 */
+        top: auto;
+        bottom: 15vw;                /* 移到最底部當襯底 */
+        left: 50% !important;        /* 水平置中 */
+        font-size: 12vw;             /* 放大英文背景字 */
+        width: 100vw;
+        text-align: center;
+        -webkit-text-stroke: 1px #aa9d89ef;
+        
+        animation: mobileFadeInText 1.5s ease 0.9s forwards !important;
+    }
+
+    .DDD {
+        opacity: 0;                  /* 剛進入網頁先藏起來 */
+        top: 90vw;
+        bottom: 85vw;                /* 定位在中間偏下位置（可依畫面視覺自行微調） */
+        left: 50% !important;        /* 【關鍵】強制水平置中 */
+        height: 60vw;                /* 放大尺寸（原本電腦版很大，手機版給它 50vw 剛剛好） */
+        width: auto;                 /* 保持比例 */
+        
+        /* 指派手機版全新淡入動畫，延遲 0.4 秒登場 */
+        animation: mobileFadeInUp 1.2s ease 0.4s forwards,
+        mobileBreatheDDD 2.0s ease-in-out infinite 1.6s;
+        
+    }
+
+    @keyframes mobileBreatheDDD {
+    0%, 100% {
+        /* 保持真水平置中，且平穩在原位 */
+        transform: translate(-50%, 0vw) scale(1);
+       
+    }
+    50% {
+        /* 呼吸頂點：輕輕往下沉 0.8vw，並微微放大 1.03 倍，散發溫柔琥珀微光 */
+        transform: translate(-50%, 1vw) scale(1);
+        
+    }
+}
+
+
+
+
+    /* ==========================================
+       4. 定義手機版專屬的 @keyframes 動態
+       ========================================== */
+    
+    /* 貼紙與標題專用的「由下往上淡入」動畫 */
+    @keyframes mobileFadeInUp {
+        from {
+            /* 起始狀態：在原本位置下方 30px，且完全透明 */
+            transform: translate(-50%, 30px); 
+            opacity: 0;
+        }
+        to {
+            /* 結束狀態：回到原本位置（0），且完全顯現 */
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+    }
+
+    /* 背景英文字專用的輕柔淡入動畫（位移較小，感覺更柔和） */
+    @keyframes mobileFadeInText {
+        from {
+            transform: translate(-50%, 15px);
+            opacity: 0;
+        }
+        to {
+            transform: translate(-50%, 0);
+            opacity: 1; 
+        }
+    }
+
+
+
+    #S1, #S2, #S3, #S4 {
+        height: auto !important;
+        padding-top: 45vw !important;    
+        padding-bottom: 25vw !important;  
+        position: relative !important;
+    }
+
+    .swiper-wrapper {
+        display: flex !important;
+        flex-direction: column !important; /* 核心：改為直向流動 */
+        align-items: center !important;    /* 水平置中 */
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* --- 2. 各科別小底圖（S1BG1, S1BG2, S1BG3）：改為水平置中並適度縮小 --- */
+    .S1BG1, .S1BG2, .S1BG3, .S4BG2 {
+        position: absolute !important;
+        top: 3vw !important;              /* 固定在該區塊的頂部 */
+        
+        /* 🌟 大招一：左右拉滿置中，徹底防止破版跑出版面 */
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        
+        width: 45vw !important;           /* 手機版適度放大到 45vw，看起來更清晰 */
+        height: auto !important;
+        z-index: 1 !important;
+    }
+
+    /* --- 3. 各科別大標題文字（S1T, S2T, S3T）：完美置中疊在小底圖前方 --- */
+    .S1T, .S2T, .S3T, .STRRR, .STLLL, .ST41, .ST42, .ST43,.ST44 {
+        position: absolute !important;
+        top: 24vw !important;             /* 順序往下推，精準定位在小底圖的前方或稍微偏下方 */
+        
+        /* 🌟 大招一：沒收電腦版的左右偏移，強行對齊中線 */
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        
+        /* 清除電腦版用來故意微調錯開的 margin，避免在手機版歪掉 */
+        margin-top: 0 !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+        
+        width: 90vw !important;           /* 限制最大寬度，確保置中計算正確 */
+        text-align: center !important;     /* 文字強制居中 */
+        font-size: 8vw !important;        /* 手機版標題字體放大至 8vw */
+        z-index: 5 !important;            /* 確保疊在底圖上方 */
+        white-space: normal !important;   /* 💡 預防萬一：萬一手機寬度太窄允許自動折行，不炸開版面 */
+    }
+
+
+
+    /* --- 5. 修正輪播卡片外層容器：讓垂直卡片隊伍完美居中 --- */
+    .carousel-section-1, 
+    .carousel-section-2, 
+    .carousel-section-3,
+    .carousel-container,
+    .swiper {
+        position: static !important;      /* 解除電腦版 left 偏移等相對定位 */
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;     /* 允許內容往下長高，不被切掉 */
+        margin: 0 auto !important;
+        top: auto !important;             /* 歸零原本設定的 top 避免過度往下掉 */
+    }
+
+
+    /* --- 1. 輪播容器調整：手機版寬度稍微拉寬，讓照片更大、更好滑 --- */
+    /* --- 2. 徹底拆散 Swiper 結構：全部降維成普通的區塊 --- */
+    .carousel-section-1, 
+    .carousel-section-2, 
+    .carousel-section-3,
+    .carousel-section-4,
+    .carousel-container,
+    .swiper {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        margin: 0 auto !important;
+      	top: auto !important; /* 歸零原本設定的 top: 43vw 避免過度往下掉 */
+    }
+
+    /* 原本橫向排隊的車廂，強制轉為直向貼文排隊，並徹底鎖死 transform */
+    .swiper-wrapper {
+        display: flex !important;
+        flex-direction: column !important; /* 核心：改為垂直直向流動 */
+        align-items: center !important;    /* 🌟 關鍵：強迫裡面所有卡片水平絕對置中 */
+        width: 100% !important;
+        height: auto !important;
+        
+        /* 💥 終極物理定身：強行歸零位移，讓滑鼠或手指怎麼滑都絕對不會動！ */
+        transform: translate3d(0px, 0px, 0px) !important; 
+        transform: translate(0px, 0px) !important;
+        transform: none !important;
+        transition: none !important;
+        transition-duration: 0ms !important;
+    }
+
+    /* 讓原本橫向卡住的 slide 變成普通的垂直大箱子 */
+   /* 每一張作品（獨立的貼文大箱子）樣式 */
+    .swiper-slide {
+        width: 100% !important;            /* 寬度拉滿，改由內部 photo 控制實體寬度 */
+        height: auto !important;
+        display: flex !important;
+        justify-content: center !important;/* 🌟 關鍵：讓內部的拍立得在箱子正中央 */
+        align-items: center !important;
+        
+        /* 確保所有 6 張照片都大方現形 */
+        visibility: visible !important;
+        opacity: 1 !important;
+        
+        /* 利用外邊距，讓每一張「拍立得貼文」之間產生垂直的舒適距離 */
+        margin-top: 0 !important;
+        margin-bottom: 14vw !important; 
+    }
+    /* 確保最後一張照片後面不要留太多空白 */
+    .swiper-slide:last-child {
+        margin-bottom: 4vw !important;
+    }
+/* --- 2. 拍立得卡片本體尺寸與樣式優化 --- */
+/* 貼文的外層大箱子（由全新 JS 自動生成） */
+    .my-custom-post-list {
+        display: flex !important;
+        flex-direction: column !important; 
+        align-items: center !important;    
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 每一張獨立的貼文項目 */
+    .my-custom-post-item {
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 18vw !important; /* 卡片與卡片之間的垂直距離 */
+    }
+
+
+    .photo {
+        position: relative !important;
+        display: block !important;
+        width: 70vw !important;           /* 放大卡片寬度，不貼死螢幕 */
+        height: 50vw !important; 
+        border: 4vw solid #f8faf5 !important;
+        border-bottom: 30vw solid #f8faf5 !important; /* 經典拍立得下留白 */
+        border-radius: 2vw !important;
+        box-shadow: 0 1.5vw 4vw rgba(45, 43, 37, 0.15) !important;
+        margin: 0 auto !important;        /* 水平置中 */
+        box-sizing: content-box !important;
+        transform: none !important;       /* 防止微幅飄移 */
+        pointer-events: auto;             /* 允許點擊卡片內容 */
+    }
+
+   
+
+    /* --- 4. 隱藏不必要的輪播按鈕 --- */
+    .btn-photo, .swiper-button-prev, .swiper-button-next {
+        display: none !important;
+    }
+
+    
+/* 按鈕基礎樣式（手帳便利貼標籤風） */
+.p-btn {
+    flex: 1;                 /* 三個按鈕均分寬度 */
+    text-align: center;
+    padding: 0.2vw 0.2vw;    /* 上下內邊距 */
+    font-size: 3.5vw;        /* 字體隨著螢幕等比例縮放 */
+    font-weight: bold;
+    color: #4a4a4a;
+    text-decoration: none !important; /* 移除超連結底線 */
+    background-color: #fcfaf200; /* 淺米色底 */
+    border: 2px solid #cdd7a6; /* 文青風邊框色 */
+    border-radius: 4px;      /* 微圓角 */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
+}
+
+
+.photo-desc{
+    font-size: 3vw;  
+}
+
+.photo-desc h4{
+    color: #382d1d;
+    margin-top: 0.5vw;
+    font-weight: 500;
+    font-size: 4vw;
+}
+
+
+
+    /* --- 4. 背景英文字底板優化 (依附在各自的科別大區塊下) --- */
+    /* 為了讓你的空心大文字在長長的網頁中依然好看，把它們改為相對定位，不會飄到奇怪的位置 */
+    .S1ET, .S2ET, .S3ET {
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important; /* 垂直居中在該科別區塊 */
+        font-size: 16vw !important;            /* 震撼的背景空心大字 */
+        z-index: -1;
+    }
+
+
+    /* --- 2. 各科別背景裝飾大圖（S1、S2、S3）：改為垂直居中，並收斂到卡片背後襯托 --- */
+    
+    /* 商經科 S1 裝飾大圖 */
+    .S1PHOTOBG {
+        top: -8vw;                   /* 往上提，當作輪播區塊的頂部裝飾 */
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        height: 40vw;                /* 稍微縮小，避免在手機佔據太多垂直空間 */
+        z-index: -1;                 /* 壓在輪播卡片後方 */
+    }
+    .S1PHOTOBG2 {
+        display: none !important;    /* 💡 策略性刪除：第二張重疊貼紙在手機版移除，避免畫面太雜亂 */
+    }
+
+    /* 國貿科 S2 裝飾大圖 */
+    .S2PHOTOBG {
+        top: -8vw;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        height: 40vw;
+        z-index: -1;
+    }
+    .S2PHOTOBG2 {
+        display: none !important;    /* 💡 手機版刪除，維持清爽 */
+    }
+
+    /* 資處科 S3 裝飾大圖 */
+    .S3PHOTOBG {
+        top: -8vw;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        height: 40vw;
+        z-index: -1;
+    }
+    .S3PHOTOBG2 {
+        display: none !important;    /* 💡 手機版刪除 */
+    }
+
+
+    /* 國貿科 S2 裝飾大圖 */
+    .S4PHOTOBG {
+        top: -8vw;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        height: 40vw;
+        z-index: -1;
+    }
+    .S4PHOTOBG2 {
+        display: none !important;    /* 💡 手機版刪除，維持清爽 */
+    }
+
+
+
+    /* --- 3. 各科超大空心背景英文字：移到中間、高度調低，在背景當大字背板 --- */
+    .S1ET, .S2ET, .S3ET {
+        top: 50vw !important;        /* 移到卡片中下方的背後 */
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: 14vw !important;   /* 字體放大成超震撼的 14vw 空心字 */
+        text-align: center;
+        width: 100vw;
+        -webkit-text-stroke: 0.3vw #aa9d89cc !important; /* 空心線條在手機上稍微加粗 */
+        z-index: -2;                 /* 確保是在最底層的背板 */
+    }
+
+    /* 左右兩側的小點綴裝飾 (adorn-L & adorn-R) 貼紙：改為藏在左右兩側或適度縮小 */
+    .adorn-L {
+        top: 15vw;
+        left: -2vw;                  /* 靠左微露出一半 */
+        height: 20vw;
+    }
+    .adorn-R {
+        top: 15vw;
+        right: -2vw;                 /* 靠右微露出一半 */
+        height: 20vw;
+    }
+
+
+    /* --- 4. 全螢幕滿版遮罩選單 (Overlay Menu) 手機優化 --- */
+    .overlay nav {
+        font-size: 32px;             /* 電腦版 50px 字體在手機太大，改為精緻的 32px */
+        height: 80%;                 /* 拉高內容容器 */
+    }
+    
+    .overlay ul li {
+        min-height: 45px;            /* 微調每行行高，更適合手指點擊 */
+    }
+
+
+    /* --- 5. 頁尾 FOOTER 調整 --- */
+    .FOOTER {
+        height: 25vw;                /* 手機版改為直向或高度拉高，容納版權文字 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .FOOTTT {
+        font-size: 3.5vw;            /* 放大版權文字字體，確保手機清晰可讀 */
+        margin-top: 0;               /* 用 flex 居中，取消 margin-top */
+        text-align: center;
+        padding: 0 10px;
+    }
+
+
+    /* 1. 縮小整體選單容器的高度範圍，並稍微往上提，讓視覺焦點集中 */
+    .overlay nav {
+        height: 50% !important;        /* 從電腦版的 70% 縮小到 50%，強迫選單骨架縮短 */
+        top: 40% !important;           /* 稍微調低或調高中心點，避開上方導覽列 */
+        font-size: 26px !important;    /* 🌟 核心：字體從 50px 縮小至精緻的 26px (可依喜好微調) */
+    }
+
+    /* 2. 調整選項的行距與排列密度 */
+    .overlay ul li {
+        height: 25% !important;        /* 依然維持四個選項各佔四分之一 */
+        min-height: 40px !important;   /* 🌟 核心：最小高度從 50px 降到 40px，讓行距大幅拉近 */
+        display: flex !important;
+        align-items: center !important;/* 確保文字在緊湊的行距中依然垂直居中 */
+        justify-content: center !important;
+    }
+
+    /* 3. 優化手機版文字超連結的點擊範圍與底線裝飾 */
+    .overlay ul li a {
+        display: inline-block !important;
+        width: 100% !important;
+        padding: 5px 0 !important;     /* 稍微給點上下內邊距，既好點擊，視覺行距又不會死貼 */
+        letter-spacing: 2px !important;/* 增加一點點字距，字體小的時候質感會大幅提升 */
+    }
+
+    /* 4. 手機版滑過（Hover）時的底部白線裝飾，微調厚度 */
+    .overlay ul li a:after {
+        height: 2px !important;        /* 線條從 3px 變薄成 2px，視覺更細緻 */
+    }
+
+
+    /* --- 9. 頁尾優化 --- */
+    .FOOTER {
+        height: 25vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .FOOTTT {
+        font-size: 2.5vw;
+        margin-top: 0;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+
+    /* 🎯 1. 解禁 Swiper 最外層的隱形牆（在手機版垂直排列時也要預防切邊） */
+    .swiper, .swiper-container {
+        padding: 15px 0 !important;   /* 上下留點呼吸空間，左右保持 0 防止干擾置中 */
+        margin: -15px 0 !important;
+        overflow: visible !important;
+    }
+
+    /* 🎯 2. 手機版卡片解禁切邊，並加入絲滑的整體懸浮動畫基礎 */
+    .swiper-s1 .swiper-slide,
+    .swiper-s2 .swiper-slide,
+    .swiper-s3 .swiper-slide,
+    .swiper-s4 .swiper-slide,
+    .swiper-s5 .swiper-slide,
+    .only2R2, .only2R {
+        overflow: visible !important; /* 核心關鍵：允許貼紙衝出去 */
+        transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* 動畫平滑度 */
+    }
+
+    /* 🎯 3. 手機版專用：整張卡片一起穩穩懸浮（手指點按或輕觸時的效果） */
+    .swiper-s1 .swiper-slide:hover,
+    .swiper-s2 .swiper-slide:hover,
+    .swiper-s3 .swiper-slide:hover,
+    .swiper-s4 .swiper-slide:hover,
+    .swiper-s5 .swiper-slide:hover,
+    .only2R2:hover, .only2R:hover {
+        transform: translateY(-5px) !important; /* 手機上微微浮起 5px 即可，太高會擋到上一張 */
+    }
+
+    /* 🎯 4. 強制鎖死手機版卡片內部的所有元件，絕對不能跟著二度飄移！ */
+    .swiper-s1 .swiper-slide:hover *,
+    .swiper-s2 .swiper-slide:hover *,
+    .swiper-s3 .swiper-slide:hover *,
+    .swiper-s4 .swiper-slide:hover *,
+    .swiper-s5 .swiper-slide:hover *,
+    .only2R2:hover *, .only2R:hover * {
+        transform: none !important; /* 確保整張卡片像實體看板一樣同步移動 */
+    }
+
+    /* 🎯 5. 精緻化手機版紙膠帶（把電腦版的 vw 單位換成實體 px 單位） */
+    .swiper-slide.award-item::after {
+        font-size: 20px !important;     /* 縮小字體，適合手機螢幕 */
+        padding: 4px 12px !important;   /* 縮小膠帶寬度與高度 */
+        
+        /* 🚀 重新計算衝出距離：因為手機版卡片通常貼近螢幕邊緣，稍微調整一下 */
+        top: -8px !important;           /* 往上凸出 8 像素 */
+        left: -5px !important;          /* 往左凸出 5 像素 */
+        
+        /* 角度微調：從電腦版的帥氣 -10deg 改為更適合小螢幕的精緻 -4deg */
+        transform: rotate(-4deg) !important;
+        
+        /* 輕量化陰影：手機解析度高，陰影淡淡的看起來更高階 */
+        box-shadow: -2px 3px 6px rgba(0, 0, 0, 0.1) !important;
+    }
+}
+
+
+/* ==========================================================================
+   📱 手機版專用：.BG1 直接現身當底圖背景（無進場動畫 ＋ 溫柔上下漂浮）
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    .BG2 {
+        /* 1. 解除電腦版的隱藏與進場動畫的干擾，強迫直接現身 */
+        display: block !important;
+        position: absolute !important;
+        opacity: 1 !important;        /* 🌟 關鍵：一開始就 100% 顯示，不玩躲貓貓 */
+        
+        /* 2. 🚀 核心置中與定位：放到封面文字的下方 */
+        top: 20vw !important;         /* 垂直位置：可依你的文字高度上下微調數值 */
+        left: 53% !important;        /* 【關鍵步驟】強迫左側推到螢幕 50% 正中央 */
+        
+        /* 3. 放大尺寸並死守比例 */
+        height: 80vw !important;     /* 放大高度（手機版 55vw 很有氣勢） */
+        width: auto !important;      /* 保持圖片原本的完美比例不變形 */
+        z-index: 1 !important;       /* 確保階層結構在文字下方、背景上方 */
+        
+        /* 4. 🚀 初始化定位平衡：一進入網頁就直接套用 -50% 水平置中，防止圖片右歪 */
+        transform: translate(-50%, 0vw) !important;
+        
+        /* 5. 🚀 核心動畫：直接啟動無限重複的溫柔上下漂浮（不需要延遲，直接出發！） */
+        animation: mobileBG1FloatDirect 4.0s ease-in-out infinite !important;
+    }
+
+    .BG1 {
+        /* 1. 解除電腦版的隱藏與進場動畫的干擾，強迫直接現身 */
+        display: block !important;
+        position: absolute !important;
+        opacity: 1 !important;        /* 🌟 關鍵：一開始就 100% 顯示，不玩躲貓貓 */
+        
+        /* 2. 🚀 核心置中與定位：放到封面文字的下方 */
+        top: 22vw !important;         /* 垂直位置：可依你的文字高度上下微調數值 */
+        left: 47% !important;        /* 【關鍵步驟】強迫左側推到螢幕 50% 正中央 */
+        
+        /* 3. 放大尺寸並死守比例 */
+        height: 85vw !important;     /* 放大高度（手機版 55vw 很有氣勢） */
+        width: auto !important;      /* 保持圖片原本的完美比例不變形 */
+        z-index: 2 !important;       /* 確保階層結構在文字下方、背景上方 */
+        
+        /* 4. 🚀 初始化定位平衡：一進入網頁就直接套用 -50% 水平置中，防止圖片右歪 */
+        transform: translate(-50%, 0vw) !important;
+        
+        /* 5. 🚀 核心動畫：直接啟動無限重複的溫柔上下漂浮（不需要延遲，直接出發！） */
+        animation: mobileBG1FloatDirect 4.0s ease-in-out infinite !important;
+    }
+}
+
+/* ==========================================================================
+   🎬 專屬於手機版的 .BG1 靜態直接漂浮軌跡定義
+   ========================================================================== */
+@keyframes mobileBG1FloatDirect {
+    0%, 100% {
+        /* 一開始就完美置中在原位 */
+        transform: translate(-50%, 0vw);
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+    }
+    50% {
+        /* 漂浮低點：優雅地向下沉 1.5vw，並微微散發溫暖琥珀微光襯托封面 */
+        transform: translate(-50%, 1.5vw);
+        filter: drop-shadow(0 12px 25px rgba(252, 235, 179, 0.5));
+    }
+}

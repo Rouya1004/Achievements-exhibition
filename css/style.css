@@ -1259,10 +1259,17 @@ html, body {
 
 /* 按鈕基礎樣式（手帳便利貼標籤風） */
 .p-btn {
-    flex: 1;                 /* 按鈕均分寬度 */
+    flex: 1;                 /* 三個按鈕均分寬度 */
     text-align: center;
-    padding: 0.2vw 0.2vw;    /* 上下內邊距 */
-    font-size: 0.7vw;        /* 字體隨著螢幕等比例縮放 */
+    
+    /* 🎯 關鍵優化 1：縮緊按鈕內部的上下 Padding（從 0.2vw 稍微縮緊到 0.15vw）
+       這能幫按鈕本體瘦身，省下高度空間 */
+    padding: 0.15vw 0.2vw;    
+    
+    /* 🎯 關鍵優化 2：字體大小從 0.7vw 稍微精細調整到 0.65vw
+       字稍微變小一點，就能大幅減少按鈕被兩行文字強行往下推的物理力道 */
+    font-size: 0.65vw;        
+    
     font-weight: bold;
     color: #4a4a4a;
     text-decoration: none !important; /* 移除超連結底線 */
@@ -1273,8 +1280,11 @@ html, body {
     transition: all 0.2s ease;
     white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
     
-    /* 🎯 核心修正：徹底刪除原本的 margin-top: 2vw; 
-       因為固定高度的推力會摧毀 margin-top: auto 的對齊機制！ */
+    /* 🎯 關鍵優化 3：加上這個保險，確保邊框的厚度不會往外吃掉按鈕的高度空間 */
+    box-sizing: border-box !important; 
+    
+    /* 確保沒有寫死任何強行的 margin-top 數字 */
+    margin-top: 0; 
 }
 
 /* 按鈕滑鼠懸停效果 */

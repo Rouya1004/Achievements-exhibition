@@ -1,11 +1,22 @@
 
+@media screen and (max-width: 1980px) {
+    
+.S0T1, .S0T2, .S0TT, .BIGT{
+        opacity: 0; /* 這樣它們在手機版就會完全消失不見 */
+    }
+
+
 
 @media screen and (max-width: 768px) {
     
 .BG3, .BG4, .BG5, .BG6, .BG7, .BG8, .DAI2, .TT1, .TT2, .TT3, .GOOD, .GOOD2, 
 .ruler, .notebook-binder, .labelpaper, .S1PHOTOBG, .S1PHOTOBG2, .S2PHOTOBG, .S2PHOTOBG2,.S3PHOTOBG, .S3PHOTOBG2, 
-.S1ET, .S2ET, .S3ET{
+.S1ET, .S2ET, .S3ET, .title-row, .S0TT .letter,.row1 .letter,.row1 .year-badge ,.row2 .letter {
         display: none !important; /* 這樣它們在手機版就會完全消失不見 */
+    }
+
+    .S0T1, .S0T2, .S0TT, .BIGT {
+        opacity: 1; /* 這樣它們在手機版就會完全消失不見 */
     }
 
 
@@ -264,7 +275,7 @@
     }
 
     /* --- 2. 標題文字區塊：全新淡入動畫與置中 --- */
-    .S0T {
+    .S0TT {
         top: 45vw;                   /* 調整在手機上的頂部距離 */
         left: 50% !important;        /* 強制將起點設在螢幕正中間 */
         width: 90vw;                 /* 限制文字區塊最大寬度，避免跑版 */
@@ -317,7 +328,7 @@
     /* 插圖貼紙 BIBI：第三個登場（延遲 0.6 秒） */
     .BIBI {
         opacity: 0;                  /* 剛進入網頁先藏起來 */
-        top: 47vw;
+        top: 50vw;
         bottom: 45vw;                /* 利用 bottom 定位在手機版的中下方 */
         left: 50% !important;        /* 水平置中 */
         height: 60vw;                /* 大幅放大插圖尺寸 */
@@ -893,4 +904,5 @@
         transform: translate(-50%, 1.5vw);
         filter: drop-shadow(0 12px 25px rgba(252, 235, 179, 0.5));
     }
+}
 }

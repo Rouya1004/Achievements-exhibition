@@ -154,6 +154,133 @@ html, body {
     background-image: url(../images/background.jpg);
 }
 
+/* ============ 標題 ============ */
+.S0TT{
+    position: relative;
+    z-index: 20;
+    color: #382d1d;
+    top: 13vw; /* 原 130pt */
+    left: 13vw; /* 原 140pt */
+    text-shadow: 3pt 3pt 2pt #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    animation: 
+        breathe 1.2s ease infinite 3s;
+}
+
+@keyframes breathe {
+    0% { transform: scale(1); }
+    10% { transform: scale(1); } 
+    50% { transform: scale(1.02); }
+
+    100% { transform: scale(1); }
+}
+
+.S0T1 {
+    font-size: 2vw; /* 原 40pt */
+    font-weight: 900;
+    letter-spacing: 0.18vw; /* 原 2pt */
+    overflow: hidden; 
+    white-space: nowrap; 
+    margin: 0; 
+    line-height: 1.4;
+    display: inline-block; 
+    width: 0; 
+    border-right: .15em solid transparent; 
+    animation: typing 1s steps(30, end) 1.5s forwards; 
+}
+
+@keyframes typing {
+    from { width: 0; }
+    /* 💡 關鍵修改 2：建議改成文字實際的大小（或剛好容納的寬度），用百分比容易因為視窗縮放而切到字 */
+    to { width: 20vw; } 
+}
+
+@keyframes moveInBBB {
+    from {
+        transform: translateX(0.9vw); /* 原 10pt */
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatUpDownBBB {
+    0% {
+        transform: rotate(0deg);
+    }
+    
+    50% {
+        transform: rotate(-2deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+
+.S0T2 {
+    font-size: 7vw; /* 原 100pt */
+    font-weight: 900;
+    letter-spacing: 0.18vw; /* 原 2pt */
+    overflow: hidden; 
+    white-space: nowrap; 
+    margin: 0; 
+    display: inline-block; 
+    width: 0; 
+    border-right: .15em solid transparent; 
+    animation: typing2 1s steps(30, end) 2.2s forwards; 
+}
+
+@keyframes typing2 {
+    from { width: 0; }
+    to { width: 55vw; } /* 💡 依據你第二行字的長度調整這個固定寬度 */
+}
+
+.S0ET {
+    position: absolute;
+    top: 45vw; /* 原 0pt */
+    left: 10.2vw; /* 原 110pt */
+    font-size: 4vw; /* 原 90pt */
+    font-weight: 1000; /* 修正原 pt 單位的語法錯誤 */
+    color: transparent; 
+    -webkit-text-stroke: 2px #aa9d89ef;
+    font-family: 'Noto Sans TC', sans-serif;
+    z-index: 2;
+    animation: 
+    moveInET 1.5s ease-out forwards,
+    floatUpDownET 1s ease infinite 2.2s;
+}
+
+
+@keyframes moveInET {
+    from {
+        /* 網頁剛載入時，強制把貼紙推到螢幕左側外面（看你貼紙多寬，這裡用 -300px 確保藏好） */
+        transform: translateY(100vw); 
+        opacity: 0; /* 剛開始透明，效果比較柔和（選填） */
+    }
+    to {
+        /* 滑入結束時，回到原本 CSS 設定的 left: 300pt 位置 */
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatUpDownET {
+    0% {
+        opacity: 1;
+    }
+    
+    50% {
+        opacity: 0.5;
+    }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
 /* ==========================================================================
    ✨ 拼貼剪紙風大標題：微調縮小字體、縮緊水平間距版
    ========================================================================== */
@@ -199,7 +326,7 @@ html, body {
     /* 複合動畫分工 */
     animation: 
         collagePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--delay) forwards,
-        collageJitter 0.4s steps(2) infinite 2.5s;
+        collageJitter 0.5s steps(2) infinite 2.5s;
 }
 
 /* 🎯 🎯 🎯 以下為大小微調區 🎯 🎯 🎯 */
@@ -256,68 +383,6 @@ html, body {
 
 
 
-
-.BIBI {
-    position: absolute;
-    opacity: 0;
-    bottom: 15.7vw; /* 原 170pt */
-    top: 13vw; /* 原 139pt */
-    left: 22vw; /* 原 260pt */
-    height: 25vw; 
-    width: auto;  
-    z-index: 2; 
-    transition: background 0.3s ease;
-    animation: 
-        moveInBBB 1s ease-out 2.5s forwards,
-        breathe 1.5s ease infinite 3s;
-        
-        
-}
-
-.S0ET {
-    position: absolute;
-    top: 45vw; /* 原 0pt */
-    left: 10.2vw; /* 原 110pt */
-    font-size: 4vw; /* 原 90pt */
-    font-weight: 1000; /* 修正原 pt 單位的語法錯誤 */
-    color: transparent; 
-    -webkit-text-stroke: 2px #aa9d89ef;
-    font-family: 'Noto Sans TC', sans-serif;
-    z-index: 2;
-    animation: 
-    moveInET 1.5s ease-out forwards,
-    floatUpDownET 1s ease infinite 2.2s;
-}
-
-
-@keyframes moveInET {
-    from {
-        /* 網頁剛載入時，強制把貼紙推到螢幕左側外面（看你貼紙多寬，這裡用 -300px 確保藏好） */
-        transform: translateY(100vw); 
-        opacity: 0; /* 剛開始透明，效果比較柔和（選填） */
-    }
-    to {
-        /* 滑入結束時，回到原本 CSS 設定的 left: 300pt 位置 */
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes floatUpDownET {
-    0% {
-        opacity: 1;
-    }
-   
-    50% {
-        opacity: 0.5;
-    }
-    
-    100% {
-        opacity: 1;
-    }
-}
-
-
 .SCHOOL {
     position: absolute;
     opacity: 0;
@@ -332,6 +397,20 @@ html, body {
         floatUpDownR 4s ease infinite 2.2s;
 }
 
+
+.BIBI {
+    position: absolute;
+    opacity: 0;
+    bottom: 15.7vw; /* 原 170pt */
+    top: 13vw; /* 原 139pt */
+    left: 22vw; /* 原 260pt */
+    height: 25vw; 
+    width: auto;  
+    z-index: 2; 
+    transition: background 0.3s ease;
+    
+        
+}
 
 
 /* 其他科系的標題 */
@@ -1010,7 +1089,7 @@ html, body {
     letter-spacing: 0.2vw;
     opacity: 0;
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 
@@ -1026,7 +1105,7 @@ html, body {
     letter-spacing: 0.2vw;
     opacity: 0;
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 
@@ -1042,7 +1121,7 @@ html, body {
     letter-spacing: 0.2vw;
     opacity: 0;
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 
@@ -1068,7 +1147,7 @@ html, body {
     transition: background 0.3s ease;
     opacity: 0;  
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 /* ============================================================================================
@@ -1112,7 +1191,7 @@ html, body {
     transition: background 0.3s ease;
     opacity: 0;  
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 
@@ -1133,7 +1212,7 @@ html, body {
     text-shadow: 0.3vw 0.3vw 0.2vw #ffffff;
     opacity: 0;  
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownTTT 4s ease infinite 2.2s;
 }
 
@@ -1167,7 +1246,7 @@ html, body {
     width: 16vw !important;     /* 原 320px 換算，卡片會隨著螢幕大小等比例縮放 */
     z-index: 20;
     border: 1.4vw solid #f8faf5 !important;        /* 邊框改為等比縮放 */
-    border-bottom: 9vw solid #f8faf5 !important; /* 底部完美等比留白 */
+    border-bottom: 7.4vw solid #f8faf5 !important; /* 底部完美等比留白 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;
@@ -1228,19 +1307,20 @@ html, body {
 
 
 
+
 /* -------------照片下按鈕-------------- */
 
-.photo-desc {
-    font-size: 0.5vw; 
-    
+.photo-desc{
+    font-size: 0.7vw;  
 }
 
-.photo-desc h4 {
+.photo-desc h4{
     color: #382d1d;
     margin-top: 0.5vw;
     font-weight: 500;
     font-size: 1.2vw;
 }
+
 
 /* 4. 三個超連結按鈕容器 */
 .photo-buttons {
@@ -1248,29 +1328,17 @@ html, body {
     justify-content: space-between;
     width: 100%;             /* 寬度與文字同寬 */
     gap: 0.6vw;              /* 按鈕之間的間距 */
+    margin-top: auto;        /* 如果文字長度不同，強迫按鈕在底部對齊 */
     
-    /* 👑 終極魔術：當父層是 flex-direction: column 時，
-       這行會強行吃掉上方剩餘的空白，把按鈕死死壓在 .photo 框線的最底部！ */
-    margin-top: 1vw;        
-    
-    /* 留白微調：如果你不希望按鈕完全黏死在最底部的卡片邊緣，
-       可以用這行來控制按鈕距離底部的微調距離（例如 0.5vw） */
-    margin-bottom: 1vw; 
 }
+
 
 /* 按鈕基礎樣式（手帳便利貼標籤風） */
 .p-btn {
     flex: 1;                 /* 三個按鈕均分寬度 */
     text-align: center;
-    
-    /* 🎯 關鍵優化 1：縮緊按鈕內部的上下 Padding（從 0.2vw 稍微縮緊到 0.15vw）
-       這能幫按鈕本體瘦身，省下高度空間 */
-    padding: 0.15vw 0.2vw;    
-    
-    /* 🎯 關鍵優化 2：字體大小從 0.7vw 稍微精細調整到 0.65vw
-       字稍微變小一點，就能大幅減少按鈕被兩行文字強行往下推的物理力道 */
-    font-size: 0.65vw;        
-    
+    padding: 0.2vw 0.2vw;    /* 上下內邊距 */
+    font-size: 0.7vw;        /* 字體隨著螢幕等比例縮放 */
     font-weight: bold;
     color: #4a4a4a;
     text-decoration: none !important; /* 移除超連結底線 */
@@ -1280,12 +1348,6 @@ html, body {
     box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
     transition: all 0.2s ease;
     white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
-    
-    /* 🎯 關鍵優化 3：加上這個保險，確保邊框的厚度不會往外吃掉按鈕的高度空間 */
-    box-sizing: border-box !important; 
-    
-    /* 確保沒有寫死任何強行的 margin-top 數字 */
-    margin-top: 0; 
 }
 
 /* 按鈕滑鼠懸停效果 */

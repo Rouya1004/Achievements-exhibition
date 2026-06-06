@@ -1248,7 +1248,7 @@ html, body {
     width: 16vw !important;     
     z-index: 20;
     border: 1.4vw solid #f8faf5 !important;        
-    border-bottom: 15vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
+    border-bottom: 12vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;

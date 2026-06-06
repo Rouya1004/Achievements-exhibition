@@ -1167,7 +1167,7 @@ html, body {
     width: 16vw !important;     /* 原 320px 換算，卡片會隨著螢幕大小等比例縮放 */
     z-index: 20;
     border: 1.4vw solid #f8faf5 !important;        /* 邊框改為等比縮放 */
-    border-bottom: 7.4vw solid #f8faf5 !important; /* 底部完美等比留白 */
+    border-bottom: 9vw solid #f8faf5 !important; /* 底部完美等比留白 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;
@@ -1231,7 +1231,7 @@ html, body {
 
 /* -------------照片下按鈕-------------- */
 
-.photo-desc p{
+.photo-desc{
     font-size: 0.5vw;  
 }
 
@@ -1269,6 +1269,7 @@ html, body {
     box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
     transition: all 0.2s ease;
     white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
+    margin-top: 2vw;
 }
 
 /* 按鈕滑鼠懸停效果 */

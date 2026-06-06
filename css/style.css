@@ -1231,8 +1231,8 @@ html, body {
 
 /* -------------照片下按鈕-------------- */
 
-.photo-desc{
-    font-size: 0.6vw;  
+.photo-desc p{
+    font-size: 0.5vw;  
 }
 
 .photo-desc h4{

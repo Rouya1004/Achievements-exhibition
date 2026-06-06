@@ -1228,20 +1228,18 @@ html, body {
 
 
 
-
 /* -------------照片下按鈕-------------- */
 
-.photo-desc{
+.photo-desc {
     font-size: 0.5vw;  
 }
 
-.photo-desc h4{
+.photo-desc h4 {
     color: #382d1d;
     margin-top: 0.5vw;
     font-weight: 500;
     font-size: 1.2vw;
 }
-
 
 /* 4. 三個超連結按鈕容器 */
 .photo-buttons {
@@ -1249,14 +1247,19 @@ html, body {
     justify-content: space-between;
     width: 100%;             /* 寬度與文字同寬 */
     gap: 0.6vw;              /* 按鈕之間的間距 */
-    margin-top: auto;        /* 如果文字長度不同，強迫按鈕在底部對齊 */
     
+    /* 👑 終極魔術：當父層是 flex-direction: column 時，
+       這行會強行吃掉上方剩餘的空白，把按鈕死死壓在 .photo 框線的最底部！ */
+    margin-top: 3vw;        
+    
+    /* 留白微調：如果你不希望按鈕完全黏死在最底部的卡片邊緣，
+       可以用這行來控制按鈕距離底部的微調距離（例如 0.5vw） */
+    margin-bottom: 0.2vw; 
 }
-
 
 /* 按鈕基礎樣式（手帳便利貼標籤風） */
 .p-btn {
-    flex: 1;                 /* 三個按鈕均分寬度 */
+    flex: 1;                 /* 按鈕均分寬度 */
     text-align: center;
     padding: 0.2vw 0.2vw;    /* 上下內邊距 */
     font-size: 0.7vw;        /* 字體隨著螢幕等比例縮放 */
@@ -1269,7 +1272,9 @@ html, body {
     box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
     transition: all 0.2s ease;
     white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
-    margin-top: 2vw;
+    
+    /* 🎯 核心修正：徹底刪除原本的 margin-top: 2vw; 
+       因為固定高度的推力會摧毀 margin-top: auto 的對齊機制！ */
 }
 
 /* 按鈕滑鼠懸停效果 */

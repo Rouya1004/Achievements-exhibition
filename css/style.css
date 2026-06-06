@@ -1248,14 +1248,14 @@ html, body {
     width: 16vw !important;     
     z-index: 20;
     border: 1.4vw solid #f8faf5 !important;        
-    border-bottom: 8vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
+    border-bottom: 9vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;
     cursor: grab;
     background-color: #f8faf5 !important;
     box-sizing: content-box !important; 
-    padding: 0.2vw;
+    padding-bottom: 0.5vw;
 }
 
 /* 照片本身：完美鋪滿拍立得內部 */

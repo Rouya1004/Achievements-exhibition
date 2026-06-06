@@ -1242,17 +1242,20 @@ html, body {
 
 /* 拍立得卡片框：全面比例化，防止小螢幕擠壓變形 */
 .photo {
-    height: 10vw !important;    /* 原 200px 換算，維持完美拍立得比例 */
-    width: 16vw !important;     /* 原 320px 換算，卡片會隨著螢幕大小等比例縮放 */
+    position: relative;         /* 👑 關鍵保險：讓底部的絕對定位按鈕可以鎖定這個家 */
+    
+    height: 10vw !important;    /* 保持你完美的大照片高度 */
+    width: 16vw !important;     
     z-index: 20;
-    border: 1.4vw solid #f8faf5 !important;        /* 邊框改為等比縮放 */
-    border-bottom: 7.4vw solid #f8faf5 !important; /* 底部完美等比留白 */
+    border: 1.4vw solid #f8faf5 !important;        
+    border-bottom: 8vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;
     cursor: grab;
     background-color: #f8faf5 !important;
     box-sizing: content-box !important; 
+    padding: 0.2vw;
 }
 
 /* 照片本身：完美鋪滿拍立得內部 */
@@ -1326,7 +1329,8 @@ html, body {
 .photo-buttons {
     display: flex;
     justify-content: space-between;
-    width: 100%;             /* 寬度與文字同寬 */
+    width: 100%;  
+    position: absolute !important;           /* 寬度與文字同寬 */
     gap: 0.6vw;              /* 按鈕之間的間距 */
     margin-top: auto;        /* 如果文字長度不同，強迫按鈕在底部對齊 */
     

@@ -1250,11 +1250,11 @@ html, body {
     
     /* 👑 終極魔術：當父層是 flex-direction: column 時，
        這行會強行吃掉上方剩餘的空白，把按鈕死死壓在 .photo 框線的最底部！ */
-    margin-top: 3vw;        
+    margin-top: 2vw;        
     
     /* 留白微調：如果你不希望按鈕完全黏死在最底部的卡片邊緣，
        可以用這行來控制按鈕距離底部的微調距離（例如 0.5vw） */
-    margin-bottom: 0.2vw; 
+    margin-bottom: 0.5vw; 
 }
 
 /* 按鈕基礎樣式（手帳便利貼標籤風） */

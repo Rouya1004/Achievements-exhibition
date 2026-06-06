@@ -75,43 +75,71 @@ html, body {
 
 
 /* ============ 下拉選單 ============ */
+/* ==========================================================================
+   ✨ 下拉選單：全面釋放父層限制，100% 隨意控制上下左右位置
+   ========================================================================== */
+
+.MANUB {
+    /* 👑 終極解法：強制使用 fixed 定位，直接對齊整個瀏覽器視窗 */
+    position: fixed !important; 
+    
+    /* 🎯 就是這裡！！現在你可以隨心所欲修改這兩個數字，物件絕對聽話搬家 */
+    top: -3vw;       /* 🎯 修改這裡控制上下位置（例如改 10vw 就會往下移） */
+    right: 4.6vw;   /* 🎯 修改這裡控制左右位置 */
+    
+    z-index: 99999 !important; /* 確保在網頁最上層 */
+    
+    /* 清除按鈕多餘灰色背景、框線 */
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    cursor: pointer;
+    
+    /* 物理呼吸動畫（2秒循環，延遲1.5秒跑） */
+    animation: breatheMANU 2s ease infinite;
+}
+
+/* 🎯 核心功能：當滑鼠移到按鈕上時，立刻暫停呼吸動畫 */
+.MANUB:hover {
+    animation-play-state: paused; 
+}
 
 .MANU {
-    position: fixed;
-    top: -2vw; /* 原 -30pt */
-    right: 4.6vw; /* 原 50pt */
-    height: 13vw; /* 固定高度 */
-    width: auto;  /* 寬度會根據圖片原本的比例，自動等比例縮放 */
-    z-index: 1000; /* 確保導覽列永遠在最上層 */
-    transition: background 0.3s ease;
-    transition: all 0.3s ease;
-    animation: 
-        breatheMANU 1.2s ease infinite;
+    height: 15vw; /* 保持你設定的 30vw 固定高度 */
+    width: auto;  /* 寬度自動等比例縮放 */
     
+    /* 強制把圖片本身的 fixed 拔除，讓它乖乖待在 MANUB 盒子裡 */
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    
+    will-change: transform, filter;
+    /* 滑鼠移入與移出時，0.3 秒平滑漸變 */
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
+/* 🎨 當滑鼠移上去時，圖片本身往下沉 1vw，並亮起琥珀黃色陰影 */
+.MANUB:hover .MANU {
+    transform: translateY(1vw); 
+    filter:drop-shadow(0 10px 12px rgba(255, 220, 106, 0.85));
+}
 
+/* 乾淨的物理呼吸動畫 */
 @keyframes breatheMANU {
-
-    0% { transform: translateY(0vw); }
-    10% { transform: translateY(0vw); } 
-    50% { transform: translateY(1vw); 
-    filter: drop-shadow(0 12px 12px rgba(255, 220, 106, 0.692)) ;}
-  
-    100% { transform: stranslateY(0vw); }
+    0%, 100% { 
+        transform: translateY(0vw); 
+    }
+    50% { 
+        transform: translateY(1vw); 
+    }
 }
 
-
-.MANU:hover{
-    transform: translateY(1vw); /* 原 22.5pt */
+/* 💡 如果你完全不需要那三條綠線的漢堡選單，直接用這行把它隱藏，不讓它出來打架 */
+.button_container {
+    display: none !important;
 }
-
-.MANUB{
-/* 💡 關鍵：把按鈕預設的灰色背景變成「透明」 */
-    background-color: transparent;
-    border: none;
-}
-
 
 /*--------------------------------------------------------------------------------------------
     首頁            
@@ -126,46 +154,107 @@ html, body {
     background-image: url(../images/background.jpg);
 }
 
-/* ============ 標題 ============ */
-.S0T{
+/* ==========================================================================
+   ✨ 拼貼剪紙風大標題：微調縮小字體、縮緊水平間距版
+   ========================================================================== */
+
+/* 1. 大標題外層總容器 */
+.S0T {
     position: relative;
     z-index: 20;
-    color: #382d1d;
-    top: 13vw; /* 原 130pt */
-    left: 13vw; /* 原 140pt */
-    text-shadow: 3pt 3pt 2pt #ffffff;
+    top: 14.2vw; 
+    left: 13vw; 
     font-family: 'Noto Sans TC', sans-serif;
-    animation: 
-        breathe 1.2s ease infinite 3s;
+   
 }
 
-@keyframes breathe {
-    0% { transform: scale(1); }
-    10% { transform: scale(1); } 
-    50% { transform: scale(1.02); }
-
-    100% { transform: scale(1); }
+/* 讓兩行字可以整齊排列 */
+.title-row {
+    display: flex;
+    
+    /* 🎯 關鍵修改 1：把原本的 0.8vw 縮小到 0.3vw，讓卡片水平靠得更近、更緊密 */
+    gap: 0.3vw; 
+    
+    align-items: center;
 }
 
-.S0T1 {
-    font-size: 2vw; /* 原 40pt */
+/* 2. 👑 單個字母卡片：移植自 test.html 的復古雜誌剪貼風格 */
+.S0T .letter {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff; /* 經典復古剪紙白底 */
+    color: #382d1d;      /* 質感深咖啡字體顏色 */
     font-weight: 900;
-    letter-spacing: 0.18vw; /* 原 2pt */
-    overflow: hidden; 
-    white-space: nowrap; 
-    margin: 0; 
-    line-height: 1.4;
-    display: inline-block; 
-    width: 0; 
-    border-right: .15em solid transparent; 
-    animation: typing 1s steps(30, end) 1.5s forwards; 
+    
+    /* 雙層立體感手帳陰影 */
+    box-shadow: 
+        0 3px 0 rgba(0,0,0,.08),
+        10px 10px 20px rgba(56, 45, 29, 0.12);
+        
+    border-radius: 1px; /* 微微的紙張圓角 */
+    opacity: 0; /* 預設隱形，等待彈出 */
+    
+    /* 複合動畫分工 */
+    animation: 
+        collagePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--delay) forwards,
+        collageJitter 0.4s steps(2) infinite 2.5s;
 }
 
-@keyframes typing {
-    from { width: 0; }
-    /* 💡 關鍵修改 2：建議改成文字實際的大小（或剛好容納的寬度），用百分比容易因為視窗縮放而切到字 */
-    to { width: 20vw; } 
+/* 🎯 🎯 🎯 以下為大小微調區 🎯 🎯 🎯 */
+
+/* 第一行「中壢高商」的調整（整體縮小） */
+.row1 .letter {
+    width: 2.5vw;     /* 🎯 寬度原本 4.5vw -> 縮小到 3.5vw */
+    height: 3.5vw;    /* 🎯 高度原本 5.5vw -> 縮小到 4.5vw */
+    font-size: 1.6vw; /* 🎯 字體大小原本 2vw -> 縮小到 1.6vw */
 }
+
+/* 「115年度」小徽章卡片的特殊調整 */
+.row1 .year-badge {
+    width: auto !important;
+    height: 2.2vw !important;  /* 🎯 配合第一行縮小高度 */
+    font-size: 0.8vw !important; /* 🎯 字體大小原本 1vw -> 縮小到 0.8vw */
+    padding: 0 0.4vw;
+    bottom: -0.2vw;
+    background: #fff4bf; 
+}
+
+/* 第二行「校內專題成果展」的調整（大幅縮小） */
+.row2 .letter {
+    width: 6vw;       /* 🎯 寬度原本 8vw -> 縮小到 6vw */
+    height: 7.2vw;    /* 🎯 高度原本 9.5vw -> 縮小到 7.2vw */
+    font-size: 5vw;   /* 🎯 字體大小原本 6.5vw -> 縮小到 5vw */
+}
+
+/* ==========================================================================
+   ✨ 下方動畫定義維持不變
+   ========================================================================== */
+
+@keyframes collagePop {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rot)) scale(0);
+    }
+    60% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1);
+    }
+}
+
+@keyframes collageJitter {
+    0%, 100% { transform: rotate(var(--rot)) translateY(0); }
+    25% { transform: rotate(calc(var(--rot) + 1deg)) translateY(-1px); }
+    75% { transform: rotate(calc(var(--rot) - 1deg)) translateY(1px); }
+}
+
+
+
 
 
 .BIBI {
@@ -183,48 +272,6 @@ html, body {
         breathe 1.5s ease infinite 3s;
         
         
-}
-@keyframes moveInBBB {
-    from {
-        transform: translateX(0.9vw); /* 原 10pt */
-        opacity: 0; 
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes floatUpDownBBB {
-    0% {
-        transform: rotate(0deg);
-    }
-  
-    50% {
-        transform: rotate(-2deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-
-.S0T2 {
-    font-size: 7vw; /* 原 100pt */
-    font-weight: 900;
-    letter-spacing: 0.18vw; /* 原 2pt */
-    overflow: hidden; 
-    white-space: nowrap; 
-    margin: 0; 
-    display: inline-block; 
-    width: 0; 
-    border-right: .15em solid transparent; 
-    animation: typing2 1s steps(30, end) 2.2s forwards; 
-}
-
-@keyframes typing2 {
-    from { width: 0; }
-    to { width: 55vw; } /* 💡 依據你第二行字的長度調整這個固定寬度 */
 }
 
 .S0ET {
@@ -1206,6 +1253,7 @@ html, body {
     
 }
 
+
 /* 按鈕基礎樣式（手帳便利貼標籤風） */
 .p-btn {
     flex: 1;                 /* 三個按鈕均分寬度 */
@@ -1506,49 +1554,6 @@ html, body {
 /* -------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
 
-
-.button_container {
-  position: fixed;
-  top: 5%;
-  right: 2%;
-  height: 27px;
-  width: 35px;
-  cursor: pointer;
-  z-index: 100;
-  transition: opacity 0.25s ease;
-}
-.button_container:hover {
-  opacity: 0.7;
-}
-.button_container.active .top {
-  transform: translateY(10px) translateX(0) rotate(45deg);
-  background: #fff;
-}
-.button_container.active .middle {
-  opacity: 0;
-  background: #fff;
-}
-.button_container.active .bottom {
-  transform: translateY(-10px) translateX(0) rotate(-45deg);
-  background: #fff;
-}
-.button_container span {
-  background: #b1e08c;
-  border: none;
-  height: 5px;
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0;
-  transition: all 0.35s ease;
-  cursor: pointer;
-}
-.button_container span:nth-of-type(2) {
-  top: 10px;
-}
-.button_container span:nth-of-type(3) {
-  top: 20px;
-}
 
 .overlay {
   position: fixed;

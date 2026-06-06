@@ -1,0 +1,1753 @@
+
+
+html, body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: #fcfaf2;
+    width: 100%;
+    overflow-x: hidden; /* 雙重鎖死 html 與 body，防止手機瀏覽器漏接 */
+    position: relative;
+}
+
+/*--------------------------------------------------------------------------------------------
+    導覽列            
+-----------------------------------------*/
+
+
+
+
+/* 1. 頂部固定導覽列 */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4vw;
+    background-image: url(../images/Navigation\ bar.jpg);
+    z-index: 1000; /* 確保導覽列永遠在最上層 */
+    transition: background 0.3s ease;
+}
+
+
+
+
+.nav-container {
+    width: 100%;        /* 寬度百分之百撐開 */
+    max-width: none;     /* 取消最大寬度限制，讓它釋放邊界 */
+    padding: 0 20px;     /* 左右只留 20px 的微小安全間距，如果想完全貼死可以改成 0 */
+    height: 100%;
+    
+    display: flex;
+    justify-content: space-between; /* 關鍵：這會把 LOGO 推到最左，選單推到最右 */
+    align-items: center;
+}
+
+/* 左側 LOGO 圖片設定 */
+.nav-logo img {
+    height: 9vw; 
+    width: auto;  
+    display: block;
+    margin-left: 9.3vw; /* 原 100pt */
+    transition: transform 0.5s ease, height 0.5s ease; 
+}
+
+/* ==========================================
+   🔥 新增：當網頁在最頂端（.at-top）時的 LOGO 放大效果
+   ========================================== */
+.navbar.at-top .nav-logo img {
+    height: 10vw; 
+    margin-top: 3vw; /* 原 40pt */
+    animation: 
+        breatheLOGO 1.2s ease infinite 3s;
+}
+
+@keyframes breatheLOGO {
+    0% { transform: scale(1); } 
+    10% { transform: scale(1); } 
+    50% { transform: scale(1.04); }
+
+    100% { transform: scale(1); }
+}
+/* 左側 LOGO 的 Hover 效果 (你原本的) */
+/* 💡 加上 :not(.at-top) 可以讓它在頂端放大時不要再重複放大，畫面比較乾淨 */
+.nav-logo img:hover {
+    transform: scale(1.05);
+}
+
+
+/* ============ 下拉選單 ============ */
+/* ==========================================================================
+   ✨ 下拉選單：全面釋放父層限制，100% 隨意控制上下左右位置
+   ========================================================================== */
+
+.MANUB {
+    /* 👑 終極解法：強制使用 fixed 定位，直接對齊整個瀏覽器視窗 */
+    position: fixed !important; 
+    
+    /* 🎯 就是這裡！！現在你可以隨心所欲修改這兩個數字，物件絕對聽話搬家 */
+    top: -3vw;       /* 🎯 修改這裡控制上下位置（例如改 10vw 就會往下移） */
+    right: 4.6vw;   /* 🎯 修改這裡控制左右位置 */
+    
+    z-index: 99999 !important; /* 確保在網頁最上層 */
+    
+    /* 清除按鈕多餘灰色背景、框線 */
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    cursor: pointer;
+    
+    /* 物理呼吸動畫（2秒循環，延遲1.5秒跑） */
+    animation: breatheMANU 2s ease infinite;
+}
+
+/* 🎯 核心功能：當滑鼠移到按鈕上時，立刻暫停呼吸動畫 */
+.MANUB:hover {
+    animation-play-state: paused; 
+}
+
+.MANU {
+    height: 15vw; /* 保持你設定的 30vw 固定高度 */
+    width: auto;  /* 寬度自動等比例縮放 */
+    
+    /* 強制把圖片本身的 fixed 拔除，讓它乖乖待在 MANUB 盒子裡 */
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    
+    will-change: transform, filter;
+    /* 滑鼠移入與移出時，0.3 秒平滑漸變 */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* 🎨 當滑鼠移上去時，圖片本身往下沉 1vw，並亮起琥珀黃色陰影 */
+.MANUB:hover .MANU {
+    transform: translateY(1vw); 
+    filter:drop-shadow(0 10px 12px rgba(255, 220, 106, 0.85));
+}
+
+/* 乾淨的物理呼吸動畫 */
+@keyframes breatheMANU {
+    0%, 100% { 
+        transform: translateY(0vw); 
+    }
+    50% { 
+        transform: translateY(1vw); 
+    }
+}
+
+/* 💡 如果你完全不需要那三條綠線的漢堡選單，直接用這行把它隱藏，不讓它出來打架 */
+.button_container {
+    display: none !important;
+}
+
+/*--------------------------------------------------------------------------------------------
+    首頁            
+-----------------------------------------*/
+
+
+#S0 {
+    height: 64.8vw; /* 原 700pt */
+    padding-top: 2vw;
+   
+    
+    background-image: url(../images/background.jpg);
+}
+
+/* ==========================================================================
+   ✨ 拼貼剪紙風大標題：微調縮小字體、縮緊水平間距版
+   ========================================================================== */
+
+/* 1. 大標題外層總容器 */
+.S0T {
+    position: relative;
+    z-index: 20;
+    top: 14.2vw; 
+    left: 13vw; 
+    font-family: 'Noto Sans TC', sans-serif;
+   
+}
+
+/* 讓兩行字可以整齊排列 */
+.title-row {
+    display: flex;
+    
+    /* 🎯 關鍵修改 1：把原本的 0.8vw 縮小到 0.3vw，讓卡片水平靠得更近、更緊密 */
+    gap: 0.3vw; 
+    
+    align-items: center;
+}
+
+/* 2. 👑 單個字母卡片：移植自 test.html 的復古雜誌剪貼風格 */
+.S0T .letter {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff; /* 經典復古剪紙白底 */
+    color: #382d1d;      /* 質感深咖啡字體顏色 */
+    font-weight: 900;
+    
+    /* 雙層立體感手帳陰影 */
+    box-shadow: 
+        0 3px 0 rgba(0,0,0,.08),
+        10px 10px 20px rgba(56, 45, 29, 0.12);
+        
+    border-radius: 1px; /* 微微的紙張圓角 */
+    opacity: 0; /* 預設隱形，等待彈出 */
+    
+    /* 複合動畫分工 */
+    animation: 
+        collagePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--delay) forwards,
+        collageJitter 0.4s steps(2) infinite 2.5s;
+}
+
+/* 🎯 🎯 🎯 以下為大小微調區 🎯 🎯 🎯 */
+
+/* 第一行「中壢高商」的調整（整體縮小） */
+.row1 .letter {
+    width: 2.5vw;     /* 🎯 寬度原本 4.5vw -> 縮小到 3.5vw */
+    height: 3.5vw;    /* 🎯 高度原本 5.5vw -> 縮小到 4.5vw */
+    font-size: 1.6vw; /* 🎯 字體大小原本 2vw -> 縮小到 1.6vw */
+}
+
+/* 「115年度」小徽章卡片的特殊調整 */
+.row1 .year-badge {
+    width: auto !important;
+    height: 2.2vw !important;  /* 🎯 配合第一行縮小高度 */
+    font-size: 0.8vw !important; /* 🎯 字體大小原本 1vw -> 縮小到 0.8vw */
+    padding: 0 0.4vw;
+    bottom: -0.2vw;
+    background: #fff4bf; 
+}
+
+/* 第二行「校內專題成果展」的調整（大幅縮小） */
+.row2 .letter {
+    width: 6vw;       /* 🎯 寬度原本 8vw -> 縮小到 6vw */
+    height: 7.2vw;    /* 🎯 高度原本 9.5vw -> 縮小到 7.2vw */
+    font-size: 5vw;   /* 🎯 字體大小原本 6.5vw -> 縮小到 5vw */
+}
+
+/* ==========================================================================
+   ✨ 下方動畫定義維持不變
+   ========================================================================== */
+
+@keyframes collagePop {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rot)) scale(0);
+    }
+    60% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1);
+    }
+}
+
+@keyframes collageJitter {
+    0%, 100% { transform: rotate(var(--rot)) translateY(0); }
+    25% { transform: rotate(calc(var(--rot) + 1deg)) translateY(-1px); }
+    75% { transform: rotate(calc(var(--rot) - 1deg)) translateY(1px); }
+}
+
+
+
+
+
+.BIBI {
+    position: absolute;
+    opacity: 0;
+    bottom: 15.7vw; /* 原 170pt */
+    top: 13vw; /* 原 139pt */
+    left: 22vw; /* 原 260pt */
+    height: 25vw; 
+    width: auto;  
+    z-index: 2; 
+    transition: background 0.3s ease;
+    animation: 
+        moveInBBB 1s ease-out 2.5s forwards,
+        breathe 1.5s ease infinite 3s;
+        
+        
+}
+
+.S0ET {
+    position: absolute;
+    top: 45vw; /* 原 0pt */
+    left: 10.2vw; /* 原 110pt */
+    font-size: 4vw; /* 原 90pt */
+    font-weight: 1000; /* 修正原 pt 單位的語法錯誤 */
+    color: transparent; 
+    -webkit-text-stroke: 2px #aa9d89ef;
+    font-family: 'Noto Sans TC', sans-serif;
+    z-index: 2;
+    animation: 
+    moveInET 1.5s ease-out forwards,
+    floatUpDownET 1s ease infinite 2.2s;
+}
+
+
+@keyframes moveInET {
+    from {
+        /* 網頁剛載入時，強制把貼紙推到螢幕左側外面（看你貼紙多寬，這裡用 -300px 確保藏好） */
+        transform: translateY(100vw); 
+        opacity: 0; /* 剛開始透明，效果比較柔和（選填） */
+    }
+    to {
+        /* 滑入結束時，回到原本 CSS 設定的 left: 300pt 位置 */
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes floatUpDownET {
+    0% {
+        opacity: 1;
+    }
+   
+    50% {
+        opacity: 0.5;
+    }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.SCHOOL {
+    position: absolute;
+    opacity: 0;
+    top: 13.5vw; /* 原 150pt */
+    left: 29.5vw; /* 原 400pt */
+    height: 8vw; 
+    width: auto;  
+    z-index: 2; 
+    transition: background 0.3s ease;
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownR 4s ease infinite 2.2s;
+}
+
+
+
+/* 其他科系的標題 */
+.BIGT{
+    letter-spacing: 2vw;
+}
+
+
+.STRRR {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    right: -3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 10.5vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.STLLL {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    left: 3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-left: 4.5vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+
+
+.ST41{
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    right: -3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 8.2vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+
+}
+
+.ST42 {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    left: 3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-left: 2vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.ST43{
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    right: -3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 5.5vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+
+}
+
+.ST44 {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    left: 3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-left: 0vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+
+/*--------------------------------------------------------------------------------------------
+    商經 - 方案二：純 CSS 單位對齊法
+--------------------------------------------------------------------------------------------*/
+
+#S1 {
+    position: relative;
+    height: 50vw; 
+    padding-top: 40px;
+    padding-bottom: 25px;
+    background-image: url(../images/background.jpg);
+}
+
+/* 讓圖片與文字使用完全一樣的 top 和 right 起點，並把 480px 換算成大約 33vw */
+.S1BG1 {
+    position: absolute;
+    top: 10vw; 
+    right: 0vw;        /* 修正起點 */
+    width: 30vw;        /* 【關鍵】拋棄 480px，改用 vw 讓圖片大小能跟著視窗一起縮放！ */
+    height: auto; 
+    z-index: 0; 
+    transition: background 0.3s ease;
+    animation: floatUpDownMTT 2s ease infinite;
+}
+
+.S1T {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    right: -3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 6vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.notebook-binder {
+    position: absolute; 
+    top: 60vw; 
+    height: 5vw;         
+    z-index: 10; 
+    width: 100%;            
+        
+    background-image: url(../images/spiral\ bind\ journal\ book.jpg); 
+    background-size: contain;     
+    background-repeat: repeat-x; 
+    background-position: center;  
+}
+
+.carousel-section-1 {
+    position: relative;
+    top: 12vw;
+    left: 8vw;
+    width: 100%;
+    padding: 60px 0;
+    background-color: transparent; 
+}
+
+@keyframes floatUpDownMTT {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(0.5vw); }
+}
+
+/*--------------------------------------------------------------------------------------------
+    國貿 - 方案二：純 CSS 單位對齊法
+--------------------------------------------------------------------------------------------*/
+
+#S2 {
+    position: relative;
+    height: 50vw; 
+    padding-top: 40px;
+    padding-bottom: 25px;
+    background-image: url(../images/background.jpg);
+}
+
+/* 讓圖片與文字使用完全一樣的 top 和 right 起點，並把 480px 換算成大約 33vw */
+.S1BG2 {
+    position: absolute;
+    top: 10vw; 
+    left: 0vw;        /* 修正起點 */
+    width: 30vw;        /* 【關鍵】拋棄 480px，改用 vw 讓圖片大小能跟著視窗一起縮放！ */
+    height: auto; 
+    z-index: 0; 
+    transition: background 0.3s ease;
+    animation: floatUpDownMTT 2s ease infinite;
+}
+.S2T {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    left: 3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 6vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.carousel-section-2 {
+    position: relative;
+    top: 12vw;
+    left: 33vw;
+    width: 100%;
+    padding: 60px 0;
+    background-color: transparent; 
+}
+
+/*--------------------------------------------------------------------------------------------
+    資處 - 方案二：純 CSS 單位對齊法
+--------------------------------------------------------------------------------------------*/
+
+#S3 {
+    position: relative;
+    height: 55vw; 
+    padding-top: 40px;
+    padding-bottom: 25px;
+    background-image: url(../images/background.jpg);
+}
+
+/* 讓圖片與文字使用完全一樣的 top 和 right 起點，並把 480px 換算成大約 33vw */
+.S1BG3 {
+    position: absolute;
+    top: 10vw; 
+    right: 0vw;        /* 修正起點 */
+    width: 30vw;        /* 【關鍵】拋棄 480px，改用 vw 讓圖片大小能跟著視窗一起縮放！ */
+    height: auto; 
+    z-index: 0; 
+    transition: background 0.3s ease;
+    animation: floatUpDownMTT 2s ease infinite;
+}
+.S3T {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    right: -3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 6vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.carousel-section-3 {
+    position: relative;
+    top: 12vw;
+    left: 8vw;
+    width: 100%;
+    padding: 60px 0;
+    background-color: transparent; 
+}
+
+
+
+/*--------------------------------------------------------------------------------------------
+    區塊四 - 方案二：純 CSS 單位對齊法
+--------------------------------------------------------------------------------------------*/
+
+#S4 {
+    position: relative;
+    height: 50vw; 
+    padding-top: 40px;
+    padding-bottom: 25px;
+    background-image: url(../images/background.jpg);
+}
+
+/* 讓圖片與文字使用完全一樣的 top 和 right 起點，並把 480px 換算成大約 33vw */
+.S4BG2 {
+    position: absolute;
+    top: 10vw; 
+    left: 0vw;        /* 修正起點 */
+    width: 30vw;        /* 【關鍵】拋棄 480px，改用 vw 讓圖片大小能跟著視窗一起縮放！ */
+    height: auto; 
+    z-index: 0; 
+    transition: background 0.3s ease;
+    animation: floatUpDownMTT 2s ease infinite;
+}
+.S4T {
+    position: absolute;
+    top: 11.5vw;        /* 【關鍵】使其與背景圖的 top 基準點完全一致 */
+    left: 3vw;        /* 【關鍵】使其與背景圖的 right 基準點完全一致 */
+    
+    /* 使用 margin 或者是 transform 來做局部微調重疊（數值皆用 vw 確保等比） */
+    margin-top: 11.8vw;  
+    margin-right: 6vw;
+    
+    z-index: 20;
+    color: #382d1d;
+    text-shadow: 3px 3px 2px #ffffff;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 900;
+    font-size: 5vw; 
+    animation: floatUpDownMTT 2s ease infinite;
+    white-space: nowrap;
+}
+
+.carousel-section-4 {
+    position: relative;
+    top: 12vw;
+    left: 33vw;
+    width: 100%;
+    padding: 60px 0;
+    background-color: transparent; 
+}
+
+
+
+
+/* 全域共享動畫 */
+@keyframes floatUpDownMTT {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(0.5vw); }
+}
+/* ============ 首頁貼紙：純 CSS 終極等比對齊法（永不跑位） ============ */
+
+/* --- 貼紙 1：DDD --- */
+.DDD {
+    position: absolute;
+    top: 28vw;    /* 原 -10pt */
+    left: 35vw;      /* 原 510pt */
+    height: 25vw;    /* 原 450px：改用 vw，高度就會隨畫面放大縮小 */
+    width: auto;       /* 寬度依然保持等比例自動計算 */
+    z-index: 2; 
+    
+    transition: background 0.3s ease;
+    animation: 
+        moveInD 1s ease-out forwards,
+        floatUpDownD 4s ease infinite 2.2s;
+}
+
+@keyframes moveInD {
+    from {
+        transform: translateY(40vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes floatUpDownD {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(0.5vw); /* 原 5pt 改為 0.5vw，讓漂浮律動也等比 */
+    }
+}
+
+/* --- 貼紙 2：BG2 --- */
+.BG2 {
+    position: absolute;
+    top: 8vw;       /* 原 120pt */
+    left: -5.1vw;     /* 原 -120pt */
+    height: 35vw;    /* 原 680px */
+    width: auto;  
+    z-index: 1; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: 
+        moveIn2 1s ease-out 0.5s forwards,
+        floatUpDown2 4s ease infinite 2.2s;
+}
+
+@keyframes moveIn2 {
+    from {
+        transform: translateX(-100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes floatUpDown2 {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-1.1deg); } /* 旋轉角度不需要改，因為角度不受視窗大小影響 */
+}
+
+/* --- 貼紙 3：BG1 --- */
+.BG1 {
+    position: absolute;
+    top: 5vw;        /* 原 50pt */
+    left: -5.3vw;       /* 原 -90pt */
+    height: 35vw;    /* 原 680px */
+    width: auto;  
+    z-index: 2; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: 
+        moveIn1 1s ease-out 0.5s forwards,
+        floatUpDown1 4s ease infinite 2.2s;
+}
+
+@keyframes moveIn1 {
+    from {
+        transform: translateX(-100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes floatUpDown1 {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(1.1deg); }
+}
+
+/* --- 貼紙 4：BG3 --- */
+.BG3 {
+    position: absolute;
+    top: 15vw;       /* 原 220pt */
+    left: -0.9vw;      /* 原 -10pt */
+    height: 30vw;    /* 原 550px */
+    width: auto;  
+    z-index: 0; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn3 1s ease-out 0.5s forwards;
+}
+
+@keyframes moveIn3 {
+    from {
+        transform: translateX(-100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* --- 貼紙 5：右下綠底 --- */
+.BG4 {
+    position: absolute;
+    top: 37vw;       /* 原 0pt */
+    right: 0vw;        /* 原 0pt */
+    height: 13vw;    /* 原 280px */
+    width: auto;  
+    z-index: 1; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn4 1s ease-out 0.5s forwards;
+}
+
+@keyframes moveIn4 {
+    from {
+        transform: translateX(100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* --- 貼紙 6：右迴紋針白 --- */
+.BG5 {
+    position: absolute;
+    top: 7vw;     /* 原 55pt */
+    right: 12.5vw;     /* 原 180pt */
+    height: 35vw;    /* 原 700px */
+    width: auto;  
+    z-index: 0; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn5 1s ease-out 0.5s forwards,
+    floatUpDown1 4s ease infinite 2.2s;
+}
+
+@keyframes moveIn5 {
+    from {
+        transform: translateX(100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* --- 貼紙 7：BG6 --- */
+.BG6 {
+    position: absolute;
+    top: 12vw;    /* 原 120pt */
+    right: 10vw;     /* 原 160pt */
+    height: 30vw;    /* 原 480px */
+    width: auto;  
+    z-index: 0; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn6 1s ease-out 0.5s forwards,
+    floatUpDown2 4s ease infinite 2.2s;
+}
+
+@keyframes moveIn6 {
+    from {
+        transform: translateX(100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* --- 貼紙 8：BG7 --- */
+.BG7 {
+    position: absolute;
+    top: 11vw;       /* 原 110pt */
+    right: 23vw;     /* 原 360pt */
+    height: 30vw;    /* 原 480px */
+    width: auto;  
+    z-index: 0; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn7 1s ease-out 0.5s forwards,
+    floatUpDown2 4s ease infinite 2.2s;
+}
+
+@keyframes moveIn7 {
+    from {
+        transform: translateX(100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* --- 貼紙 9：BG8 --- */
+.BG8 {
+    position: absolute;
+    top: 10.2vw;       /* 原 110pt */
+    right: 5.5vw;      /* 原 50pt */
+    height: 30vw;    /* 原 480px */
+    width: auto;  
+    z-index: 0; 
+    transition: background 0.3s ease;
+    opacity: 0; 
+    animation: moveIn8 1s ease-out 0.5s forwards;
+}
+
+@keyframes moveIn8 {
+    from {
+        transform: translateX(100vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+/* --- DAI2（已修復動畫名稱不一致的問題） --- */
+.DAI2 {
+    position: absolute;
+    top: 18vw;    /* 原 170pt */
+    left: 4vw;       /* 原 70pt */
+    height: 18.8vw;    /* 原 270px */
+    width: auto;  
+    z-index: 1; 
+    transition: background 0.3s ease;
+    opacity: 0;
+    animation: 
+        moveIn1 1s ease-out 0.5s forwards,
+        floatUpDown1 2s ease infinite 2.2s;
+}
+
+
+
+/* --- ruler --- */
+.ruler {
+    position: absolute;
+    top: -0vw;       /* 原 -30pt */
+    left: 45vw;      /* 原 600pt */
+    height: 17vw;    /* 原 350px */
+    width: auto;  
+    z-index: 2; 
+    
+    transition: background 0.3s ease;
+    opacity: 0;
+    animation: 
+        moveInR 1s ease-out forwards,
+        floatUpDownR 4s ease infinite 2.2s;
+}
+
+@keyframes moveInR {
+    from {
+        transform: translateY(-30vw); 
+        opacity: 0; 
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes floatUpDownR {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(0.5vw); /* 原 5pt 修改為等比微漂浮 */
+    }
+}
+
+/* --- TT1 --- */
+.TTT{
+    margin-right: 0.4vw;
+    margin-top: 1.8vw;
+    font-weight: 500;
+    color: #ffffff;
+    text-shadow: 3pt 3pt 2pt#382d1d;
+}
+
+.TT1 {
+    position: absolute;
+    top: 12vw;       /* 原 180pt */
+    right: 20vw;     /* 原 310pt */
+    height: 11vw;    /* 原 150px */
+    width: auto;  
+    z-index: 2; 
+    font-size: 1.2vw;  /* 字體大小改為 vw 才會跟著螢幕縮放 */  
+    letter-spacing: 0.2vw;
+    opacity: 0;
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+
+/* --- TT2 --- */
+.TT2 {
+    position: absolute;
+    top: 19vw;       /* 原 280pt */
+    right: 24.5vw;     /* 原 380pt */
+    height: 11vw;    /* 原 150px */
+    width: auto;  
+    z-index: 2; 
+    font-size: 1.2vw;  /* 字體大小改為 vw */
+    letter-spacing: 0.2vw;
+    opacity: 0;
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+
+/* --- TT3 --- */
+.TT3 {
+    position: absolute;
+    top: 26vw;       /* 原 380pt */
+    right: 29vw;     /* 原 450pt */
+    height: 11vw;    /* 原 150px */
+    width: auto;  
+    z-index: 2; 
+    font-size: 1.2vw;  /* 字體大小改為 vw */
+    letter-spacing: 0.2vw;
+    opacity: 0;
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+
+/* 【優化】將 TT1~TT3 共用的動畫統一整理在下方，不重複定義 */
+
+@keyframes floatUpDownTTT {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(0.5vw) rotate(-2deg); /* 位移改用 vw，角度保留 */
+    }
+}
+
+/* --- GOOD --- */
+.GOOD {
+    position: absolute;
+    top: 24vw;       /* 原 280pt */
+    left: 27vw;      /* 原 380pt */
+    height: 12vw;    /* 原 270px */
+    width: auto;  
+    z-index: 10; 
+    transition: background 0.3s ease;
+    opacity: 0;  
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+/* ============================================================================================
+    開場限定：彈跳一下定格動畫 (純 CSS 等比單位)
+============================================================================================ */
+
+
+
+@keyframes introBouncePlay {
+    0% {
+        transform: scale(0);   /* 剛開始完全隱形（從 0 開始長大） */
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1.25); /* 快速衝到 1.25 倍大（造成視覺張力） */
+        opacity: 1;
+    }
+    60% {
+        transform: scale(0.92); /* 稍微縮小回彈（像橡皮糖一樣有彈性） */
+    }
+    75% {
+        transform: scale(1.05); /* 再輕微擴張一點點 */
+    }
+    90% {
+        transform: scale(1);    /* 回歸正常大小 */
+    }
+    100% {
+        transform: scale(1);    /* 完美定格在原地 */
+        opacity: 1;
+    }
+}
+
+/* --- GOOD2 --- */
+.GOOD2 {
+    position: absolute;
+    top: 36vw;     /* 原 50pt */
+    left: 75vw;      /* 原 30pt */
+    height: 12vw;    /* 原 280px */
+    width: auto;  
+    z-index: 10; 
+    transition: background 0.3s ease;
+    opacity: 0;  
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+
+
+
+/* --- labelpaper --- */
+.labelpaper {
+    position: absolute;
+    top: 31.5vw;       /* 原 390pt */
+    left: 10vw;      /* 原 150pt */
+    height: 12vw;    /* 原 280px */
+    width: auto;  
+    z-index: 2; 
+    font-size: 0.8vw;  /* 字體大小改為 vw */
+    font-weight: 1000;
+    letter-spacing: 0.2vw;
+    color: #2d2b25;
+    text-shadow: 0.3vw 0.3vw 0.2vw #ffffff;
+    opacity: 0;  
+    animation: 
+        introBouncePlay 1s ease-out 3s forwards,
+        floatUpDownTTT 4s ease infinite 2.2s;
+}
+
+
+
+/* --- LBT --- */
+.LBT {
+    margin-top: 4vw; /* 原 90pt */
+    padding: 1.9vw;     /* 原 20pt */
+}
+
+
+/* ---------------------- */
+/* ============================================================================================
+    修正後的輪播與拍立得樣式：純 CSS 終極等比對齊法（永不跑位）
+============================================================================================ */
+
+/* 輪播主容器：控制寬度在 90% (不滿版)，並開啟相對定位給按鈕抓位置 */
+.carousel-container {
+    width: 90%;
+    max-width: 58vw; 
+    position: relative;
+    
+}
+
+
+
+/* 拍立得卡片框：全面比例化，防止小螢幕擠壓變形 */
+.photo {
+    height: 10vw !important;    /* 原 200px 換算，維持完美拍立得比例 */
+    width: 16vw !important;     /* 原 320px 換算，卡片會隨著螢幕大小等比例縮放 */
+    z-index: 20;
+    border: 1.4vw solid #f8faf5 !important;        /* 邊框改為等比縮放 */
+    border-bottom: 9vw solid #f8faf5 !important; /* 底部完美等比留白 */
+    border-radius: 0.7vw !important;
+    box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
+    transition: all 0.3s ease !important;
+    cursor: grab;
+    background-color: #f8faf5 !important;
+    box-sizing: content-box !important; 
+}
+
+/* 照片本身：完美鋪滿拍立得內部 */
+.photo img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important; 
+}
+
+
+
+/* 照片控制按鈕 (左右箭頭) */
+.btn-photo {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    height: 2vw !important; /* 按鈕尺寸等比縮放，原 50px */
+    width: auto !important;
+    cursor: pointer !important;
+    z-index: 100 !important;
+    opacity: 1 !important; 
+    transition: all 0.2s ease !important;
+}
+
+.btn-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* 完美掛在容器的最左邊與最右邊外側 (使用百分比或 px 確保小螢幕不失蹤) */
+.swiper-button-prev.btn-photo {
+    left: -2vw !important;
+    
+}
+.swiper-button-next.btn-photo {
+    right: -2vw !important;
+}
+
+/* 隱藏 Swiper 預設的大藍色原生箭頭 */
+.btn-photo:after {
+    display: none !important; 
+}
+
+.btn-photo:hover {
+    transform: translateY(-50%) scale(1.1) !important;
+}
+
+
+
+
+
+/* -------------照片下按鈕-------------- */
+
+.photo-desc {
+    font-size: 0.5vw;  
+}
+
+.photo-desc h4 {
+    color: #382d1d;
+    margin-top: 0.5vw;
+    font-weight: 500;
+    font-size: 1.2vw;
+}
+
+/* 4. 三個超連結按鈕容器 */
+.photo-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;             /* 寬度與文字同寬 */
+    gap: 0.6vw;              /* 按鈕之間的間距 */
+    
+    /* 👑 終極魔術：當父層是 flex-direction: column 時，
+       這行會強行吃掉上方剩餘的空白，把按鈕死死壓在 .photo 框線的最底部！ */
+    margin-top: 3vw;        
+    
+    /* 留白微調：如果你不希望按鈕完全黏死在最底部的卡片邊緣，
+       可以用這行來控制按鈕距離底部的微調距離（例如 0.5vw） */
+    margin-bottom: 0.2vw; 
+}
+
+/* 按鈕基礎樣式（手帳便利貼標籤風） */
+.p-btn {
+    flex: 1;                 /* 按鈕均分寬度 */
+    text-align: center;
+    padding: 0.2vw 0.2vw;    /* 上下內邊距 */
+    font-size: 0.7vw;        /* 字體隨著螢幕等比例縮放 */
+    font-weight: bold;
+    color: #4a4a4a;
+    text-decoration: none !important; /* 移除超連結底線 */
+    background-color: #fcfaf200; /* 淺米色底 */
+    border: 2px solid #cdd7a6; /* 文青風邊框色 */
+    border-radius: 4px;      /* 微圓角 */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    white-space: nowrap;     /* 防止按鈕內文字斷行擠壓 */
+    
+    /* 🎯 核心修正：徹底刪除原本的 margin-top: 2vw; 
+       因為固定高度的推力會摧毀 margin-top: auto 的對齊機制！ */
+}
+
+/* 按鈕滑鼠懸停效果 */
+.p-btn:hover {
+    transform: translateY(-2px); /* 獨立微幅浮起 */
+    box-shadow: 1px 3px 6px rgba(0,0,0,0.12);
+    color: #ffffff !important;   /* 懸停時字體變白色 */
+}
+
+/* 為三個按鈕設定專屬的繽紛手帳色系 (您可以隨喜好調整顏色) */
+.btn-slide:hover {
+    background-color: #819a44 !important; /* 櫻花粉紅 */
+    border-color: #819a44 !important;
+}
+.btn-video:hover {
+    background-color: #819a44 !important; /* 薄荷粉綠 */
+    border-color: #819a44 !important;
+}
+.btn-report:hover {
+    background-color: #819a44 !important; /* 粉天鵝藍 */
+    border-color: #819a44 !important;
+}
+
+
+/* 💡 當照片只有 1~3 張、停用 Swiper 時的智慧置中排版補丁 */
+.swiper.swiper-disabled-custom {
+    overflow: visible !important; 
+}
+
+.swiper.swiper-disabled-custom .swiper-wrapper {
+    display: flex !important;
+    justify-content: center !important; /* 核心：1~3張時，不管是幾張都絕對置中 */
+    gap: 20px !important;              /* 保持原有的間距 */
+    transform: none !important;        /* 關閉 Swiper 的位移 */
+    width: 100% !important;
+}
+
+.swiper.swiper-disabled-custom .swiper-slide {
+    /* 確保寬度與原本一次看3張（扣掉間距）的比例完全一致 */
+    width: calc((100% - 40px) / 3) !important; 
+    flex-shrink: 0 !important;
+    
+}
+
+/* 💡 當照片不足 4 張、停用 Swiper 時的智慧置中排版補丁 */
+.swiper.swiper-disabled-custom {
+    overflow: visible !important; 
+}
+
+.swiper.swiper-disabled-custom .swiper-wrapper {
+    display: flex !important;
+    justify-content: center !important; /* 1~3張時，不管是幾張都絕對置中 */
+    gap: 20px !important;              /* 保持原有的間距 */
+    transform: none !important;        /* 關閉 Swiper 的位移 */
+    width: 100% !important;
+}
+
+.swiper.swiper-disabled-custom .swiper-slide {
+    width: calc((100% - 40px) / 3) !important; 
+    flex-shrink: 0 !important;
+    
+}
+
+/* 💻 電腦版 4張以上智慧防空白強力修正補丁 */
+@media screen and (min-width: 769px) {
+    .swiper:not(.swiper-disabled-custom) .swiper-wrapper {
+        display: flex !important;
+        width: max-content !important; /* 確保加倍後的圖片可以無限向右橫向延伸，絕對不被父層擠壓產生空白 */
+    }
+}
+
+
+.swiper-slide{
+    transition: transform 0.5s ease;
+    box-shadow: 5pt 3pt 5pt #2d2b250c;
+    
+}
+
+
+/* 滑鼠碰到任何作品卡片時，整張圖一起乾淨俐落地浮起來 */
+.swiper-slide:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 5pt 3pt 5pt #2d2b2538;
+}
+
+.only2L{
+    margin-right: 9VW;
+}
+
+.only2R{
+    margin-left: 14.5VW;
+}
+
+.only2R2{
+    margin-left: 5.5VW;
+}
+
+
+
+
+/* --- FOOTER --- */
+.FOOTER {
+    height: 5vw; /* 原 150pt */
+    background-image: url(../images/Navigation\ bar.jpg);
+}
+
+.FOOTTT{
+    color: #ffffff;
+    margin-top: 1.5vw;
+    letter-spacing: 0.2vw;
+    font-weight: 500;
+  
+}
+
+/* ============================================================================================
+    各科別背景裝飾大圖與空心大文字（全面等比縮放防止破版）
+============================================================================================ */
+
+/* --- S1 (商經科) 背景裝飾 --- */
+.S1PHOTOBG {
+    position: absolute;
+    top: 12vw;       /* 原 0pt */
+    left: 7.4vw;       /* 原 800pt -> 修正對齊 80pt 換算 */
+    height: 30vw;    /* 原 580px */
+    width: auto;  
+    z-index: 0; 
+}
+.S1PHOTOBG2 {
+    position: absolute;
+    top: 15vw;     /* 原 20pt */
+    left: 11.1vw;      /* 原 120pt */
+    height: 24vw;    /* 原 350px */
+    width: auto;  
+    z-index: -1; 
+}
+
+/* --- S2 (國貿科) 背景裝飾 --- */
+.S2PHOTOBG {
+    position: absolute;
+    top: 12vw;      /* 原 130pt */
+    right: 7.4vw;      /* 原 80pt */
+    height: 30vw;    /* 原 580px */
+    width: auto;  
+    z-index: 0; 
+}
+.S2PHOTOBG2 {
+    position: absolute;
+    top: 15vw;    /* 原 150pt */
+    right: 11.1vw;     /* 原 130pt */
+    height: 24vw;    /* 原 350px */
+    width: auto;  
+    z-index: -1; 
+}
+
+/* --- S3 (資處科) 背景裝飾 --- */
+.S3PHOTOBG {
+    position: absolute;
+    top: 12vw;      /* 原 150pt -> 對齊你提供的樣式 */
+    left: 7.4vw;       /* 原 80pt */
+    height: 30vw;    /* 原 580px */
+    width: auto;  
+    z-index: 0; 
+}
+.S3PHOTOBG2 {
+    position: absolute;
+    top: 15vw;    /* 原 220pt */
+    left: 11.1vw;      /* 原 120pt */
+    height: 24vw;    /* 原 350px */
+    width: auto;  
+    z-index: -1; 
+}
+
+/* --- S4背景裝飾 --- */
+.S4PHOTOBG {
+    position: absolute;
+    top: 12vw;      /* 原 130pt */
+    right: 7.4vw;      /* 原 80pt */
+    height: 30vw;    /* 原 580px */
+    width: auto;  
+    z-index: 0; 
+}
+.S4PHOTOBG2 {
+    position: absolute;
+    top: 15vw;    /* 原 150pt */
+    right: 11.1vw;     /* 原 130pt */
+    height: 24vw;    /* 原 350px */
+    width: auto;  
+    z-index: -1; 
+}
+
+
+
+/* --- 各科超大空心背景英文字 --- */
+.S1ET {
+    position: absolute;
+    top: 8vw;    /* 原 290pt */
+    left: 2.8vw;       /* 原 30pt */
+    font-size: 6vw;  /* 超大字體等比縮放，原 90pt，大螢幕霸氣、小螢幕不爆版 */
+    font-weight: 1000;
+    color: transparent; 
+    -webkit-text-stroke: 0.15vw #aa9d89ef; /* 空心線條粗細改為等比 */
+    font-family: 'Noto Sans TC', sans-serif;
+    z-index: 2;
+    animation:floatUpDownET 1s ease infinite ; 
+    
+}
+
+.S2ET {
+    position: absolute;
+    top: 8vw;    /* 原 370pt */
+    left: 28vw;        /* 原 410pt */
+    font-size: 6vw;  /* 原 90pt */
+    font-weight: 1000;
+    color: transparent; 
+    -webkit-text-stroke: 0.15vw #aa9d89ef;
+    font-family: 'Noto Sans TC', sans-serif;
+    z-index: 2;
+    animation:floatUpDownET 1s ease infinite ;    
+    
+}
+
+.S3ET {
+    position: absolute;
+    top: 8vw;    /* 原 460pt */
+    left: 8.3vw;       /* 原 90pt */
+    font-size: 6vw;  /* 原 90pt */
+    font-weight: 1000;
+    color: transparent; 
+    -webkit-text-stroke: 0.15vw #aa9d89ef;
+    font-family: 'Noto Sans TC', sans-serif;
+    z-index: 2;
+    animation:floatUpDownET 1s ease infinite ;     
+    
+}
+
+
+
+
+
+.adorn-L {
+    position: absolute;
+    top: 30vw;     /* 原 20pt */
+    left: -6vw;      /* 原 120pt */
+    height: 14vw;    /* 原 350px */
+    width: auto;  
+    z-index: 2;
+}
+
+
+.adorn-R {
+    position: absolute;
+    top: 30vw;    /* 原 150pt */
+    right: -6vw;     /* 原 130pt */
+    height: 14vw;    /* 原 350px */
+    width: auto;  
+    
+    z-index: 2;
+}
+
+
+.adorn-L-1 {
+    position: absolute;
+    top: 38vw;     /* 原 20pt */
+    left: -6vw;      /* 原 120pt */
+    height: 14vw;    /* 原 350px */
+    width: auto;  
+    z-index: 2;
+}
+
+.adorn-R-1 {
+    position: absolute;
+    top: 35vw;    /* 原 150pt */
+    right: -6vw;     /* 原 130pt */
+    height: 14vw;    /* 原 350px */
+    width: auto;  
+    
+    z-index: 2;
+}
+
+
+
+
+/* -------------------------------- */
+@import url(https://fonts.googleapis.com/css?family=Vollkorn|Roboto);
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  visibility: hidden;
+  transition: opacity 0.35s, visibility 0.35s, width 0.35s;
+  z-index: 200;
+}
+.overlay:before {
+  content: "";
+  background: #ccd7a7;
+  left: -55%;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  transition: left 0.35s ease;
+}
+.overlay:after {
+  content: "";
+  background: #ccd7a7;
+  right: -55%;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  transition: all 0.35s ease;
+}
+.overlay.open {
+  opacity: 0.9;
+  visibility: visible;
+  height: 100%;
+}
+.overlay.open:before {
+  left: 0;
+}
+.overlay.open:after {
+  right: 0;
+}
+.overlay.open li {
+  -webkit-animation: fadeInRight 0.5s ease forwards;
+          animation: fadeInRight 0.5s ease forwards;
+  -webkit-animation-delay: 0.35s;
+          animation-delay: 0.35s;
+}
+.overlay.open li:nth-of-type(2) {
+  -webkit-animation-delay: 0.45s;
+          animation-delay: 0.45s;
+}
+.overlay.open li:nth-of-type(3) {
+  -webkit-animation-delay: 0.55s;
+          animation-delay: 0.55s;
+}
+.overlay.open li:nth-of-type(4) {
+  -webkit-animation-delay: 0.65s;
+          animation-delay: 0.65s;
+}
+.overlay nav {
+  position: relative;
+  height: 70%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 50px;
+  font-family: "Vollkorn", serif;
+  font-weight: 400;
+  text-align: center;
+  z-index: 100;
+}
+.overlay ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  position: relative;
+  height: 100%;
+}
+.overlay ul li {
+  display: block;
+  height: 25%;
+  height: calc(100% / 4);
+  min-height: 50px;
+  position: relative;
+  opacity: 0;
+}
+.overlay ul li a {
+  display: block;
+  position: relative;
+  color: #372e1b;
+  text-decoration: none;
+  font-weight: 1000;
+  overflow: hidden;
+}
+.overlay ul li a:hover:after, .overlay ul li a:focus:after, .overlay ul li a:active:after {
+  width: 100%;
+}
+.overlay ul li a:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  transform: translateX(-50%);
+  height: 3px;
+  background: #fff;
+  transition: 0.35s;
+}
+
+@-webkit-keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    left: 20%;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    left: 20%;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
+
+
+/* ----------------------- */
+/* ==========================================================================
+   💛 款式一：升級版文青紙膠帶（3D 衝出框框款）
+   ========================================================================== */
+.swiper-slide.award-item {
+    position: relative;
+    
+    /* 🔥 核心關鍵：允許裝飾物超出卡片方框！否則衝出去的部分會變隱形 */
+    overflow: visible !important; 
+    
+    /* 得獎卡片的黃色溫柔琥珀柔光微調（配合貼紙稍微增強） */
+    box-shadow: 0 8px 30px rgba(252, 235, 179, 0.5) !important;
+    
+}
+
+
+
+.swiper-slide.award-item::after {
+    /* 🔮 核心魔術：動態抓取 HTML 裡面 data-award 的文字內容 */
+    content: attr(data-award);
+    
+    position: absolute;
+    top: 1px;   /* 往上衝出框框 */
+    left: -0.5vw;  /* 往左衝出框框 */
+    z-index: 999; 
+    
+    /* 樣式保持你最愛的文青淡黃色調 */
+    background: rgba(255, 244, 191, 0.95); 
+    color: #574a2a;                       
+    font-size: 0.8vw;
+    font-weight: bold;
+    letter-spacing: 1.5px;                 
+    
+    /* 這裡稍微調整一下：上下 6px，左右 16px，這樣字數不同時，膠帶寬度會自動適應，而且一樣好看 */
+    padding: 6px 16px;                    
+    
+    /* 虛線手作撕裂感 */
+    border-left: 2px dashed rgba(255, 255, 255, 0.7);
+    border-right: 2px dashed rgba(255, 255, 255, 0.7);
+    
+    /* 帥氣的傾斜度 */
+    transform: rotate(-10deg);
+    
+    /* 立體影子 */
+    box-shadow: -3px 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   🚀 解決 Swiper 輪播切邊問題（讓 3D 紙膠帶順利衝出框框）
+   ========================================================================== */
+.swiper, .swiper-container {
+    /* 1. 核心魔法：四週擴展 25px 的安全保護區，讓凸出的膠帶有地方安放 */
+    padding: 25px !important;
+    
+    /* 2. 核心魔法：用負值 margin 把外框往外拉，抵消 padding，保證照片卡片原本的位置 100% 準確不動 */
+    margin: -25px !important;
+}

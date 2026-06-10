@@ -1,7 +1,7 @@
 
 @media screen and (max-width: 1980px) {
     
-.S0T1, .S0T2, .S0TT, .BIGT{
+.S0T1, .S0T2, .BIGT{
         opacity: 0; /* 這樣它們在手機版就會完全消失不見 */
     }
 
@@ -11,11 +11,11 @@
     
 .BG3, .BG4, .BG5, .BG6, .BG7, .BG8, .DAI2, .TT1, .TT2, .TT3, .GOOD, .GOOD2, 
 .ruler, .notebook-binder, .labelpaper, .S1PHOTOBG, .S1PHOTOBG2, .S2PHOTOBG, .S2PHOTOBG2,.S3PHOTOBG, .S3PHOTOBG2, 
-.S1ET, .S2ET, .S3ET, .title-row, .S0T .letter,.row1 .letter,.row1 .year-badge ,.row2 .letter {
+.S1ET, .S2ET, .S3ET  {
         display: none !important; /* 這樣它們在手機版就會完全消失不見 */
     }
 
-    .S0T1, .S0T2, .S0TT, .BIGT {
+    .S0T1, .S0T2,  .BIGT {
         opacity: 1;
     }
 
@@ -274,17 +274,127 @@
         overflow: hidden; /* 確保手機版不會產生左右奇怪的捲軸 */
     }
 
-    /* --- 2. 標題文字區塊：全新淡入動畫與置中 --- */
-    .S0TT {
-        top: 40vw;                   /* 調整在手機上的頂部距離 */
-        left: 50% !important;        /* 強制將起點設在螢幕正中間 */
-        width: 90vw;                 /* 限制文字區塊最大寬度，避免跑版 */
-        text-align: center;
-        text-shadow: 2px 2px 2px #ffffff;
+   
+
+
+/* ==========================================================================
+   ✨ 拼貼剪紙風大標題：微調縮小字體、縮緊水平間距版
+   ========================================================================== */
+
+/* 1. 大標題外層總容器 */
+.S0T {
+    position: relative;
+    z-index: 20;
+    top: 14.2vw; 
+    left: 13vw; 
+    font-family: 'Noto Sans TC', sans-serif;
+   
+}
+
+/* 讓兩行字可以整齊排列 */
+.title-row {
+    display: flex;
+    
+    /* 🎯 關鍵修改 1：把原本的 0.8vw 縮小到 0.3vw，讓卡片水平靠得更近、更緊密 */
+    gap: 0.3vw; 
+    
+    align-items: center;
+}
+
+/* 2. 👑 單個字母卡片：移植自 test.html 的復古雜誌剪貼風格 */
+.S0T .letter {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff; /* 經典復古剪紙白底 */
+    color: #382d1d;      /* 質感深咖啡字體顏色 */
+    font-weight: 900;
+    
+    /* 雙層立體感手帳陰影 */
+    box-shadow: 
+        0 3px 0 rgba(0,0,0,.08),
+        10px 10px 20px rgba(56, 45, 29, 0.12);
         
-        /* 整個標題區第一個登場：花費 1 秒，由下往上淡入 */
-        animation: mobileFadeInUp 1s ease forwards !important;
+    border-radius: 1px; /* 微微的紙張圓角 */
+    opacity: 0; /* 預設隱形，等待彈出 */
+    
+    /* 複合動畫分工 */
+    animation: 
+        collagePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--delay) forwards,
+        collageJitter 0.5s steps(2) infinite 2.5s;
+}
+
+/* 🎯 🎯 🎯 以下為大小微調區 🎯 🎯 🎯 */
+
+/* 第一行「中壢高商」的調整（整體縮小） */
+.row1 .letter {
+    width: 2.5vw;     /* 🎯 寬度原本 4.5vw -> 縮小到 3.5vw */
+    height: 3.5vw;    /* 🎯 高度原本 5.5vw -> 縮小到 4.5vw */
+    font-size: 1.6vw; /* 🎯 字體大小原本 2vw -> 縮小到 1.6vw */
+}
+
+/* 「115年度」小徽章卡片的特殊調整 */
+.row1 .year-badge {
+    width: auto !important;
+    height: 2.2vw !important;  /* 🎯 配合第一行縮小高度 */
+    font-size: 0.8vw !important; /* 🎯 字體大小原本 1vw -> 縮小到 0.8vw */
+    padding: 0 0.4vw;
+    bottom: -0.2vw;
+    background: #fff4bf; 
+}
+
+/* 第二行「校內專題成果展」的調整（大幅縮小） */
+.row2 .letter {
+    width: 6vw;       /* 🎯 寬度原本 8vw -> 縮小到 6vw */
+    height: 7.2vw;    /* 🎯 高度原本 9.5vw -> 縮小到 7.2vw */
+    font-size: 5vw;   /* 🎯 字體大小原本 6.5vw -> 縮小到 5vw */
+}
+
+/* ==========================================================================
+   ✨ 下方動畫定義維持不變
+   ========================================================================== */
+
+@keyframes collagePop {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rot)) scale(0);
     }
+    60% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1);
+    }
+}
+
+@keyframes collageJitter {
+    0%, 100% { transform: rotate(var(--rot)) translateY(0); }
+    25% { transform: rotate(calc(var(--rot) + 1deg)) translateY(-1px); }
+    75% { transform: rotate(calc(var(--rot) - 1deg)) translateY(1px); }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /* 第一行小標：成果展主題（取消電腦打字效果） */
     .S0T1 {
@@ -316,7 +426,7 @@
     .SCHOOL {
         opacity: 0;                  /* 剛進入網頁先藏起來，等動畫觸發 */
         top: 30vw;
-        bottom: 92vw;                /* 定位在標題下方、BIBI上方 */
+        bottom: 92vw;                
         left: 50% !important;        /* 水平置中 */
         height: 15vw;                /* 放大尺寸 */
         width: auto;
@@ -325,17 +435,7 @@
         animation: mobileFadeInUp 1.2s ease 0.3s forwards !important;
     }
 
-    /* 插圖貼紙 BIBI：第三個登場（延遲 0.6 秒） */
-    .BIBI {
-        opacity: 0;                  /* 剛進入網頁先藏起來 */
-        top: 45vw;
-        bottom: 45vw;                /* 利用 bottom 定位在手機版的中下方 */
-        left: 50% !important;        /* 水平置中 */
-        height: 60vw;                /* 大幅放大插圖尺寸 */
-        width: auto;
-        
-        animation: mobileFadeInUp 1.2s ease 0.6s forwards !important;
-    }
+   
 
     /* 背景裝飾大字 S0ET：第四個淡淡浮現（延遲 0.9 秒） */
     .S0ET {
@@ -562,7 +662,7 @@
     .photo {
         position: relative !important;
         display: block !important;
-        width: 70vw !important;           /* 放大卡片寬度，不貼死螢幕 */
+        width: 76vw !important;           /* 放大卡片寬度，不貼死螢幕 */
         height: 50vw !important; 
         border: 4vw solid #f8faf5 !important;
         border-bottom: 35vw solid #f8faf5 !important; /* 經典拍立得下留白 */
@@ -824,7 +924,7 @@
 
     /* 🎯 5. 精緻化手機版紙膠帶（把電腦版的 vw 單位換成實體 px 單位） */
     .swiper-slide.award-item::after {
-        font-size: 20px !important;     /* 縮小字體，適合手機螢幕 */
+        font-size: 24px !important;     /* 縮小字體，適合手機螢幕 */
         padding: 4px 12px !important;   /* 縮小膠帶寬度與高度 */
         
         /* 🚀 重新計算衝出距離：因為手機版卡片通常貼近螢幕邊緣，稍微調整一下 */
@@ -905,7 +1005,121 @@
         filter: drop-shadow(0 12px 25px rgba(252, 235, 179, 0.5));
     }
 }
+
+
+
+/* ==========================================================================
+   ✨ 拼貼剪紙風大標題：手機版專屬（完美置中、整體大氣放大版）
+   ========================================================================== */
+
+/* 1. 大標題外層總容器 */
+.S0T {
+    position: relative;
+    z-index: 20;
+    
+    /* 🎯 手機版微調：控制整體標題與頂部的距離（可依封面圖位置上下調整這個數值） */
+    top: 45vw; 
+    
+    /* 🎯 關鍵修改 1：取消電腦版靠左，寬度撐滿，啟動 Flex 讓兩行字水平靠中央對齊 */
+    left: 0 !important; 
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+
+    font-family: 'Noto Sans TC', sans-serif;
 }
 
+/* 讓兩行字可以整齊排列 */
+.title-row {
+    display: flex !important;
+    
+    /* 🎯 關鍵修改 2：讓這一行裡面的所有字卡在手機螢幕正中央水平排列 */
+    justify-content: center !important; 
+    
+    /* 🎯 關鍵修改 3：字卡之間的水平間距（手機上稍微拉開一點點，視覺更舒適） */
+    gap: 0.8vw !important; 
+    
+    align-items: center !important;
+    width: 100% !important;
+    
+    /* 🎯 關鍵修改 4：第一行與第二行之間的上下大間距，避免兩行撞在一起 */
+    margin-bottom: 0.5vw !important; 
+}
 
+/* 2. 👑 單個字母卡片：基本風格維持（陰影與動畫） */
+.S0T .letter {
+    position: relative;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff; /* 經典復古剪紙白底 */
+    color: #382d1d;      /* 質感深咖啡字體顏色 */
+    font-weight: 900;
+    
+    /* 雙層立體感手帳陰影 */
+    box-shadow: 
+        0 3px 0 rgba(0,0,0,.08),
+        10px 10px 20px rgba(56, 45, 29, 0.12);
+        
+    border-radius: 2px; /* 稍微增加一點手機上的紙張圓角感 */
+    opacity: 0; /* 預設隱形，等待彈出 */
+    
+    /* 複合動畫分工 */
+    animation: 
+        collagePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) var(--delay) forwards,
+        collageJitter 0.5s steps(2) infinite 2.5s;
+}
 
+/* 🎯 🎯 🎯 📱 手機版 RWD 核心放大區 🎯 🎯 🎯 */
+
+/* 第一行「中壢高商」的調整（在手機上放大） */
+.row1 .letter {
+    width: 9vw !important;      /* 🎯 放大！適合手機觀看的寬度 */
+    height: 11vw !important;     /* 🎯 放大！適合手機觀Client的高度 */
+    font-size: 5.5vw !important;  /* 🎯 內文文字同步放大，視覺超清晰 */
+}
+
+/* 「115年度」小徽章卡片的特殊調整 */
+.row1 .year-badge {
+    width: auto !important;
+    height: 8vw !important;       /* 🎯 配合第一行放大高度 */
+    font-size:3.2vw !important;  /* 🎯 字體放大，不縮在角落 */
+    padding: 0 1.5vw !important;
+    bottom: -1vw !important;      /* 微調黏在第一行邊緣的定位 */
+    background: #fff4bf; 
+}
+
+/* 第二行「校內專題成果展」的調整（在手機上大幅放大作為主角） */
+.row2 .letter {
+    width: 12vw !important;      /* 🎯 大幅放大！佔據手機版主要視覺 */
+    height: 15vw !important;     /* 🎯 大幅放大！讓卡片有氣勢 */
+    font-size: 9.5vw !important;  /* 🎯 超級大字，手機上一目了然 */
+}
+
+/* ==========================================================================
+   ✨ 下方動畫定義維持不變
+   ========================================================================== */
+
+@keyframes collagePop {
+    0% {
+        opacity: 0;
+        transform: rotate(var(--rot)) scale(0);
+    }
+    60% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1);
+    }
+}
+
+@keyframes collageJitter {
+    0%, 100% { transform: rotate(var(--rot)) translateY(0); }
+    25% { transform: rotate(calc(var(--rot) + 1deg)) translateY(-1px); }
+    75% { transform: rotate(calc(var(--rot) - 1deg)) translateY(1px); }
+}
+
+}

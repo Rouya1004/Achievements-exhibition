@@ -155,18 +155,7 @@ html, body {
 }
 
 /* ============ 標題 ============ */
-.S0TT{
-    position: relative;
-    z-index: 20;
-    color: #382d1d;
-    top: 13vw; /* 原 130pt */
-    left: 13vw; /* 原 140pt */
-    text-shadow: 3pt 3pt 2pt #ffffff;
-    font-family: 'Noto Sans TC', sans-serif;
-    opacity: 0;
-    animation: 
-        breathe 1.2s ease infinite 3s;
-}
+
 
 @keyframes breathe {
     0% { transform: scale(1); }
@@ -394,24 +383,12 @@ html, body {
     z-index: 2; 
     transition: background 0.3s ease;
     animation: 
-        introBouncePlay 1s ease-out 3s forwards,
+        introBouncePlay 1s ease-out 1.5s forwards,
         floatUpDownR 4s ease infinite 2.2s;
 }
 
 
-.BIBI {
-    position: absolute;
-    opacity: 0;
-    bottom: 15.7vw; /* 原 170pt */
-    top: 13vw; /* 原 139pt */
-    left: 22vw; /* 原 260pt */
-    height: 25vw; 
-    width: auto;  
-    z-index: 2; 
-    transition: background 0.3s ease;
-    
-        
-}
+
 
 
 /* 其他科系的標題 */
@@ -1832,3 +1809,13 @@ html, body {
     /* 2. 核心魔法：用負值 margin 把外框往外拉，抵消 padding，保證照片卡片原本的位置 100% 準確不動 */
     margin: -25px !important;
 }
+
+
+
+
+.fa-solid, .fa-regular{
+    margin-right: 0.5vw;
+}
+
+
+

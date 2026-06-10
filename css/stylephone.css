@@ -11,12 +11,12 @@
     
 .BG3, .BG4, .BG5, .BG6, .BG7, .BG8, .DAI2, .TT1, .TT2, .TT3, .GOOD, .GOOD2, 
 .ruler, .notebook-binder, .labelpaper, .S1PHOTOBG, .S1PHOTOBG2, .S2PHOTOBG, .S2PHOTOBG2,.S3PHOTOBG, .S3PHOTOBG2, 
-.S1ET, .S2ET, .S3ET, .title-row, .S0TT .letter,.row1 .letter,.row1 .year-badge ,.row2 .letter {
+.S1ET, .S2ET, .S3ET, .title-row, .S0T .letter,.row1 .letter,.row1 .year-badge ,.row2 .letter {
         display: none !important; /* 這樣它們在手機版就會完全消失不見 */
     }
 
     .S0T1, .S0T2, .S0TT, .BIGT {
-        opacity: 1; /* 這樣它們在手機版就會完全消失不見 */
+        opacity: 1;
     }
 
 
@@ -72,7 +72,7 @@
         transform: none !important;
         margin: 0 auto !important;          /* 關鍵：靠這行強迫兩張照片的區塊在手機版徹底水平居中 */
         box-shadow: 0 4px 15px rgba(0,0,0,0.08) !important;
-        background: #fff !important;
+        background: #ffffff00 !important;
         display: block !important;
         position: relative !important;
         left: 0 !important;                 /* 清除可能寫死在電腦版的左右位移 */
@@ -276,7 +276,7 @@
 
     /* --- 2. 標題文字區塊：全新淡入動畫與置中 --- */
     .S0TT {
-        top: 45vw;                   /* 調整在手機上的頂部距離 */
+        top: 40vw;                   /* 調整在手機上的頂部距離 */
         left: 50% !important;        /* 強制將起點設在螢幕正中間 */
         width: 90vw;                 /* 限制文字區塊最大寬度，避免跑版 */
         text-align: center;
@@ -328,7 +328,7 @@
     /* 插圖貼紙 BIBI：第三個登場（延遲 0.6 秒） */
     .BIBI {
         opacity: 0;                  /* 剛進入網頁先藏起來 */
-        top: 50vw;
+        top: 45vw;
         bottom: 45vw;                /* 利用 bottom 定位在手機版的中下方 */
         left: 50% !important;        /* 水平置中 */
         height: 60vw;                /* 大幅放大插圖尺寸 */
@@ -565,7 +565,7 @@
         width: 70vw !important;           /* 放大卡片寬度，不貼死螢幕 */
         height: 50vw !important; 
         border: 4vw solid #f8faf5 !important;
-        border-bottom: 30vw solid #f8faf5 !important; /* 經典拍立得下留白 */
+        border-bottom: 35vw solid #f8faf5 !important; /* 經典拍立得下留白 */
         border-radius: 2vw !important;
         box-shadow: 0 1.5vw 4vw rgba(45, 43, 37, 0.15) !important;
         margin: 0 auto !important;        /* 水平置中 */
@@ -606,8 +606,8 @@
 
 .photo-desc h4{
     color: #382d1d;
-    margin-top: 0.5vw;
-    font-weight: 500;
+    margin-top: 5vw;
+    font-weight: bolder;
     font-size: 4vw;
 }
 
@@ -906,3 +906,6 @@
     }
 }
 }
+
+
+

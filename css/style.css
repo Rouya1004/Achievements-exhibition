@@ -163,6 +163,7 @@ html, body {
     left: 13vw; /* 原 140pt */
     text-shadow: 3pt 3pt 2pt #ffffff;
     font-family: 'Noto Sans TC', sans-serif;
+    opacity: 0;
     animation: 
         breathe 1.2s ease infinite 3s;
 }
@@ -1248,14 +1249,15 @@ html, body {
     width: 16vw !important;     
     z-index: 20;
     border: 1.4vw solid #f8faf5 !important;        
-    border-bottom: 9vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
+    border-bottom: 10vw solid #f8faf5 !important; /* 保持拍立得經典大白邊 */
     border-radius: 0.7vw !important;
     box-shadow: 0.2vw 0.2vw 0.7vw rgba(45, 43, 37, 0.3) !important;
     transition: all 0.3s ease !important;
     cursor: grab;
     background-color: #f8faf5 !important;
     box-sizing: content-box !important; 
-    padding-bottom: 0.5vw;
+    padding-bottom: 1vw;
+    padding-top: 0.5vw;
 }
 
 /* 照片本身：完美鋪滿拍立得內部 */
@@ -1314,14 +1316,16 @@ html, body {
 /* -------------照片下按鈕-------------- */
 
 .photo-desc{
-    font-size: 0.7vw;  
+    font-size: 0.65vw;  
+    
 }
 
 .photo-desc h4{
     color: #382d1d;
     margin-top: 0.5vw;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 1.2vw;
+    
 }
 
 
@@ -1793,14 +1797,14 @@ html, body {
     content: attr(data-award);
     
     position: absolute;
-    top: 1px;   /* 往上衝出框框 */
-    left: -0.5vw;  /* 往左衝出框框 */
+    top: 0px;   /* 往上衝出框框 */
+    left: -0.8vw;  /* 往左衝出框框 */
     z-index: 999; 
     
     /* 樣式保持你最愛的文青淡黃色調 */
-    background: rgba(255, 244, 191, 0.95); 
-    color: #574a2a;                       
-    font-size: 0.8vw;
+    background: rgba(237, 90, 90, 0.95); 
+    color: #ffffff;                       
+    font-size: 1vw;
     font-weight: bold;
     letter-spacing: 1.5px;                 
     
@@ -1808,8 +1812,8 @@ html, body {
     padding: 6px 16px;                    
     
     /* 虛線手作撕裂感 */
-    border-left: 2px dashed rgba(255, 255, 255, 0.7);
-    border-right: 2px dashed rgba(255, 255, 255, 0.7);
+    border-left: 2px dashed rgba(244, 209, 209, 0.7);
+    border-right: 2px dashed rgba(244, 209, 209, 0.7);
     
     /* 帥氣的傾斜度 */
     transform: rotate(-10deg);
